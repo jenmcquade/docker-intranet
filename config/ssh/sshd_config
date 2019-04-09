@@ -1,0 +1,30 @@
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+HostKey /etc/ssh/private/ssh_host_rsa_key
+HostKeyAlgorithms ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-rsa,ssh-dss
+
+KexAlgorithms ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256
+
+MACs hmac-sha2-256,hmac-sha2-512,hmac-sha1
+
+LogLevel VERBOSE
+
+AuthorizedKeysFile /etc/ssh/authorized-keys/%u
+
+PermitRootLogin prohibit-password
+
+Banner /etc/ssh/banner.txt
+
+AllowTcpForwarding no
+AllowStreamLocalForwarding no
+GatewayPorts no
+PermitTunnel no
+ChrootDirectory /ftp/public
+Compression yes
+ListenAddress 0.0.0.0:22
+PermitTTY yes
+X11DisplayOffset 10
+X11Forwarding yes
+PermitListen 0.0.0.0:22
+PermitListen 192.168.1.*:22
+PermitListen 10.0.0.*:22
+MaxSessions 25

@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  wp:
+    env_file:
+      - ./.env
+    image: wordpress:latest # https://hub.docker.com/_/wordpress/
+    ports:
+      - ${IP}:${WP_PORT}:80
+    volumes:
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./wp-app:/var/www/html # Full wordpress project
+      - ./plugins/:/var/www/html/wp-content/plugins # Plugin development
+      - ./themes:/var/www/html/wp-content/themes # Theme development
+      - ./files:/var/www/html/wp-content/uploads # Uploaded files
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: "${WP_DB_NAME}"
+      WORDPRESS_DB_USER: "${WP_DB_USER}"
+      WORDPRESS_DB_PASSWORD: "${WP_DB_PASSWORD}"
+    depends_on:
+      - db
+    labels:
+      com.iwc.stack: "wordpress"
+      com.iwc.description: "wordpress official release"
+      com.iwc.type: "service"
+      
+  wpcli:
+    env_file:
+      ./.env
+    image: wordpress:cli
+    volumes:
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./wp-app:/var/www/html
+    depends_on:
+      - db
+      - wp
+    labels:
+      com.iwc.stack: "wordpress"
+      com.iwc.description: "run wordpress cli from a Docker container"
+      com.iwc.type: "tool"
+
+  db:
+    env_file:
+      ./.env
+    image: mysql:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
+    ports:
+      - ${IP}:${MYSQL_PORT}:3306 # change ip if required
+    command: [
+        '--default_authentication_plugin=mysql_native_password',
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci'
+    ]
+    volumes:
+      - ./wp-data:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: "${WP_DB_NAME}"
+      MYSQL_ROOT_PASSWORD: "${WP_DB_PASSWORD}"
+    labels:
+      com.iwc.stack: "wordpress"
+      com.iwc.description: "MySQL services for WordPress"
+      com.iwc.type: "server"
+
+volumes:
+  db_data:

@@ -1,0 +1,190 @@
+version: '3'
+services:
+  aphex:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_aphex:v${IWC_INTRANET_VERSION}
+    build:
+      context: ./dns/docker-nginx
+    deploy:
+      mode: replicated
+      replicas: 4
+    container_name: aphex
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+    environment:
+      - CERTS_DIR=/etc/letsencrypt/live
+    ports:
+      - ${HTTP_ACCESS_PORT}:80
+      - ${SSL_ACCESS_PORT}:443
+    volumes:
+      - ./sites:/var/www
+      - ./config/nginx/sites-available:/etc/nginx/sites-available
+      - ./config/nginx/sites-enabled:/etc/nginx/sites-enabled
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./config:/intranet/config
+      - ./ops/logs:/var/log
+      - ./util:/intranet/util
+    networks:
+      - home
+      - ops
+    labels:
+      com.iwc.stack: "alpine, php, nginx"
+      com.iwc.description: "Reverse proxy handling of DNS entries"
+      com.iwc.type: "proxy"
+
+  firewall:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_firewall:v${IWC_INTRANET_VERSION}
+    build:
+      context: ops/docker-firewall
+    container_name: firewall
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    labels:
+      com.iwc.stack: "alpine"
+      com.iwc.description: "Global firewall rules for Docker containers"
+      com.iwc.type: "utility"
+      com.iwc.context: "NET_ADMIN"
+      com.iwc.network_mode: "host"
+
+  dnsmasqd:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_dnsmasqd:v${IWC_INTRANET_VERSION}
+    build:
+      context: ./dns/docker-dnsmasq
+    deploy:
+      mode: replicated
+      replicas: 2
+    container_name: dnsmasq
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+    volumes:
+      - ./config/webproc/webproc-dnsmasq.toml:/config/webproc/webproc-dnsmasq.toml
+      - ./config/global/resolv.conf:/etc/resolv.conf
+      - ./config/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
+      - ./config:/intranet/config
+      - ./ops/logs:/var/log
+      - ./storage/ftp:/etc/dnsmasq/ftp
+      - ./util:/intranet/util
+    labels:
+      com.iwc.stack: "alpine"
+      com.iwc.description: "dnsmaq daemon as port 53 manager"
+      com.iwc.type: "dns"
+      com.iwc.context: "NET_ADMIN"
+      com.iwc.network_mode: "host"
+      com.iwc.notes: "This manages port 53 of the host (no port setting)"
+
+  dnscryptd:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_dnscrypt-proxy:v${IWC_INTRANET_VERSION}
+    build:
+      context: ./dns/docker-dnscrypt
+    deploy:
+      mode: replicated
+      replicas: 2
+    container_name: dnscrypt
+    ports:
+      - ${DNSCRYPT_UDP}:53/udp
+      - ${DNSCRYPT_TCP}:53/tcp
+    depends_on:
+      - dnsmasqd
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+    volumes:
+      - ./config/webproc/webproc-dnscrypt.toml:/config/webproc/webproc-dnscrypt.toml
+      - ./config/dnscrypt/dnscrypt.toml:/config/dnscrypt-proxy.toml
+      - ./ops/logs:/var/log
+      - ./config:/intranet/config
+      - ./util:/intranet/util
+    networks:
+      - home
+      - ops
+    labels:
+      com.iwc.stack: "alpine"
+      com.iwc.description: "dnscrypt-proxy for encrypting dnsmasq traffic"
+      com.iwc.type: "proxy"
+
+  smbd:
+   env_file:
+     - ./.env
+   image: ${DOCKER_ACCT}/intranet_smbd:v${IWC_INTRANET_VERSION}
+   build:
+     context: ./storage/docker-samba
+   deploy:
+     mode: replicated
+     replicas: 2
+   container_name: smbd
+   environment:
+      - CERTS_DIR=/etc/letsencrypt/live
+   volumes: 
+     - ./storage/ftp:/media/samba/ftp
+     - ./storage/docker-samba/shares:/media/samba
+     - ./config/samba/smb.conf:/etc/samba/smb.conf
+     - ./config:/intranet/config
+     - ./ops/certs:/etc/letsencrypt/live
+     - ./ops/logs:/var/log
+     - ./util:/intranet/util
+   ports:
+     - "${SMB_UDP_PORT1}:137/udp"
+     - "${SMB_UDP_PORT2}:138/udp"
+     - "${SMB_TCP_PORT1}:139"
+     - "${SMB_TCP_PORT2}:445"
+   networks:
+     - home
+     - ops
+   labels:
+     com.iwc.stack: "alpine"
+     com.iwc.description: "Samba access to shared volumes"
+     com.iwc.type: "storage"
+
+  rsync:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_rsync:v${IWC_INTRANET_VERSION}
+    container_name: rsync
+    build:
+      context: ./storage/docker-rsync
+    ports:
+      - ${RSYNC_PORT}:873
+      - ${SSH_PORT}:22
+    environment:
+      - CERTS_DIR=/etc/letsencrypt/live
+    volumes:
+      - .ssh/authorized_keys:/root/.ssh/authorized_keys
+      - ./storage/ftp/public:/data/public
+      - ./storage/ftp/public:/volume
+      - ./ops/certs:/etc/letsencrypt/live
+      - ./ops/logs:/var/log
+      - ./config:/intranet/config
+      - ./util:/intranet/util
+    networks:
+      - home
+      - ops
+    labels:
+      com.iwc.stack: "debian"
+      com.iwc.description: "rsync and ssh server access to shared volumes"
+      com.iwc.type: "storage"
+
+networks:
+  ops:
+    driver: bridge
+  home:
+    driver: bridge

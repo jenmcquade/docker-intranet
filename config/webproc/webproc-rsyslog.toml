@@ -1,0 +1,37 @@
+# Program to execute (with optional Arguments). Note: the process
+# must remain in the foreground (i.e. do NOT fork/run as daemon).
+ProgramArgs = ["rsyslogd","-n","-f","/intranet/config/rsyslog/rsyslogd.conf"]
+
+# Interface to serve web UI. Warning: defaults to ALL interfaces.
+Host = "0.0.0.0"
+
+# Port to serve web UI
+Port = 8080
+
+# Basic authentication settings for web UI
+User = "admin"
+Pass = "password"
+
+# IP addresses which should be allowed to access the web UI
+# For example, ["10.0.0.0/8"]
+#AllowedIPs = ["0.0.0.0","127.0.0.0","127.0.0.1","10.0.0.0/8","192.168.1.0/8"]
+
+# Log settings for the process:
+# "both" - log to both, webproc standard out/error and to the web UI log.
+# "webui" - only log to the web UI. Note, the web UI only keeps the last 10k lines.
+# "proxy" - only log to webproc standard out/error.
+Log = "both"
+
+# OnExit dictates what action to take when the process exits:
+# "ignore" - ignore and wait for manual restart via the web UI
+# "proxy" - also exit webproc with the same exit code
+# "restart" - automatically restart with exponential backoff time delay between failed restarts
+OnExit = "ignore"
+
+# Configuration files to be editable by the web UI.
+# For example, dnsmasq would include "/etc/dnsmasq.conf"
+ConfigurationFiles = ["/intranet/config/rsyslog/rsyslogd.conf"]
+
+# After the restart signal (SIGINT) has been sent, webproc will wait for RestartTimeout before
+# forcibly restarting the process (SIGKILL).
+RestartTimeout = "30s"

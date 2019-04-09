@@ -1,0 +1,138 @@
+version: '3'
+
+services:
+
+  firewall:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_firewall:v${IWC_INTRANET_VERSION}
+    build:
+      context: ./docker-firewall
+    restart: always
+    container_name: firewall
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    environment:
+     - FW_SERVICE=${FW_SERVICE}
+     - FW_PROTO=${FW_PROTO}
+     - FW_PORTS=${FW_PORTS}
+     - FW_STATIC=${FW_STATIC}
+
+  cadvisor:
+    image: google/cadvisor
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro 
+      - /var/run:/var/run:ro 
+      - /sys:/sys:ro 
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    ports:
+      - 8181:8080
+    networks:
+      - home
+      - ops
+
+  portainer:
+    image: portainer/portainer
+    restart: always
+    ports:
+      - 8585:9000
+    container_name: portainer
+    command: --templates http://templates/templates.json
+    networks:
+      - home
+      - ops
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+    labels:
+      com.iwc.type: "ui"
+      com.iwc.description: "Docker services manager frontend"
+      com.iwc.stack: "Alpine, Portainer console"
+
+  templates:
+    image: portainer/templates
+    container_name: "portainer-templates"
+    networks:
+      - home
+      - ops
+    labels:
+      com.iwc.type: "ops"
+      com.iwc.description: "Templates for managine Portainer"
+
+  watchtower:
+    image: v2tec/watchtower
+    container_name: "portainer-watchtower"
+    command: --cleanup portainer-app portainer-watchtower portainer/templates
+    networks:
+      - home
+      - ops
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      com.iwc.type: "ops"
+      com.iwc.description: "updates docker containers dynamically with Portainer"
+
+  aws-cli:
+    image: ${DOCKER_ACCT}/aws-cli:v${IWC_INTRANET_VERSION}
+    build:
+      context: aws/docker-aws-cli
+    container_name: "aws-cli"
+    environment:
+      - CLI_VERSION=1.16.138
+    networks:
+      - ops
+    volumes:
+      - ./auth:/root/.aws
+      - ./util:/intranet/util
+    labels:
+      com.iwc.type: "ops"
+      com.iwc.description: "Run AWS CLI commands that the ./auth user has access to run."
+      com.iwc.example: "sudo docker exec aws-cli aws s3 ls"
+  
+  ssl:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/ssl-tools:v${IWC_INTRANET_VERSION}
+    build:
+      context: docker-ssl/src
+    container_name: ssl
+    networks:
+      - ops
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./certs/openssl:${CERT_DIR}
+      - ./util:/intranet/util
+    ports:
+      - 6060:80
+      - 6443:443
+    labels:
+      com.iwc.type: "ops"
+      com.iwc.description: "Certbot and openssl for managing letsencrypt public and local SSL certs"
+      com.iwc.example: "`sudo docker exec ssl /scripts/run_certbot.sh` OR `sudo docker -e ISSUER_CN=[yourdomain] exec ssl /scripts/openssl.sh` or/also use $ISSUER_CN in .env to set the domain for your self-signed cert"
+      com.iwc.notes.1: ".env is used to generate a wildcard for a local domain on container creation"
+      com.iwc.notes.2: "Certbot and symlinks are configured to write to ./certs for public certs"
+      com.iwc.notes.3: "Certbot gets its domains by using [domain].conf rules in ./config/nginx"
+      com.iwc.notes.4: "This service is proxied behind aphex (see root docker-compose.yml)"
+
+  redis:
+    image: ${DOCKER_ACCT}/redis:v1.0.0.0
+    build:
+      context: docker-redis
+    container_name: redis
+    networks:
+      - ops
+    volumes:
+      - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./util:/intranet/util
+    labels:
+      com.iwc.type: "cache"
+      com.iwc.description: "Save script output to memory instead of having to run them again"
+    
+networks:
+  ops:
+    driver: bridge
+  home:
+    driver: bridge

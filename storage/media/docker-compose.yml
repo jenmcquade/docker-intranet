@@ -1,0 +1,23 @@
+version: '2'
+services:
+  plex:
+    build:
+      context: ./docker-plex
+    network_mode: host
+    env_file:
+      - ./.env
+    container_name: plex
+    image: indiewebconsult/pms-docker:v1.0.0
+    restart: unless-stopped
+    ports:
+      - 32400:32400
+    environment:
+      - HOSTNAME=${PLEX_HOSTNAME}
+      - TZ=${TIMEZONE}
+      - PLEX_CLAIM=${PLEX_TOKEN}
+      - ADVERTISE_IP=http://${HOST_IP}:32400/
+    hostname: ${PLEX_HOSTNAME}
+    volumes:
+      - ./data:/config
+      - ./temp:/transcode
+      - ./files:/data

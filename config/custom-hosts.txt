@@ -1,0 +1,46 @@
+## Local IWC pointers
+192.168.1.141 plex
+192.168.1.141 iwc
+192.168.1.141 iwc.net
+192.168.1.141 indiewebconsulting.com
+192.168.1.141 phin.net
+192.168.1.141 mae.net
+192.168.1.141 si.net
+192.168.1.141 lu.net
+192.168.1.141 mama.net
+192.168.1.141 jones.net
+192.168.1.141 moogs.net
+192.168.1.141 mrj.net
+192.168.1.141 ray.net
+192.168.1.141 dns
+192.168.1.141 files
+192.168.1.141 domainctrl
+192.168.1.141 fileserver
+192.168.1.143 stream
+192.168.1.143 alienware
+192.168.1.122 ipad
+192.168.1.102 iphone
+192.168.1.109 winfileserver
+192.168.1.128 nook
+192.168.1.135 atv
+192.168.1.121 ps4
+192.168.1.1   router
+192.168.1.1   linksys
+
+## BLOCKED IP ADDRESSES
+
+## ALTERNATE DNS ROUTERS
+
+## WIFI GUESTS
+
+## LOCAL DEV
+
+## INTRANET DEV
+
+## EXTRANETS
+
+## STAGING/QA
+
+## TEMPORARY PROD SWAPS
+
+## SCRIPT GENERATED ENTRIES BELOW THIS LINE

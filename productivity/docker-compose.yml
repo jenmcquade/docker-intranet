@@ -1,0 +1,111 @@
+version: "3"
+services:
+  
+  redis:
+    image: redis
+    container_name: outline_redis
+    ports:
+      - "6389:6379"
+    networks:
+      - home
+    volumes:
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+    labels:
+      - com.iwc.stack: "alpine redis"
+      - com.iwc.description: "Store script results in memory"
+      - com.iwc.type: "style"
+
+  postgres:
+    image: postgres:11.2-alpine
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.postgres/var/lib/postgresql
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: intranet
+    networks:
+      - home
+    labels:
+      - com.iwc.stack: "alpine"
+      - com.iwc.description: "Database service for Outline and Moodle"
+      - com.iwc.type: "server"
+  
+  s3:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_fake-s3:v${IWC_INTRANET_VERSION}
+    restart: always
+    container_name: fakes3
+    build: 
+      context: ./docker-fakes3
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./docker-fakes3:/fakes3_root
+      - ./docker-fakes3/data:/fakes3/data
+    networks:
+      - home
+    labels:
+      - com.iwc.stack="Node 8.11"
+      - com.iwc.description="Fake S3 server for Outline"
+      - com.iwc.type="server"
+
+  mx:
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/intranet_mailserver:v${IWC_INTRANET_VERSION}
+    container_name: mailserver
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+    restart: always
+    build:
+      context: ./docker-mailserver
+    ports:
+      - ${MAIL_TCP_P1}:25
+      - ${MAIL_TCP_P2}:143
+      - ${MAIL_TCP_P3}:587
+      - ${MAIL_TCP_P4}:993
+    volumes:
+      - ./.maildata:/var/mail
+      - mailstate:/var/mail-state
+      - ./config/mx:/tmp/docker-mailserver
+    labels:
+      - com.iwc.stack: "Debian Stretch-Slim"
+      - com.iwc.description: "Mail service packages all-in-one"
+      - com.iwc.type: "server"
+
+  outline:
+    image: ${DOCKER_ACCT}/intranet_outline:v${IWC_INTRANET_VERSION}
+    container_name: outline
+    command: yarn dev
+    build:
+      context: ./docker-outline
+      args:
+        pull: 1
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker-outline:/opt/outline:cached
+    networks:
+      - home
+    depends_on:
+      - postgres
+      - redis
+      - s3
+    labels:
+      - com.iwc.stack: "Node 8.11"
+      - com.iwc.description: "Productivity tools for teams"
+      - com.iwc.type: "utility"
+
+networks:
+  home:
+    driver: bridge
+
+volumes:
+  mailstate:
+    driver: local

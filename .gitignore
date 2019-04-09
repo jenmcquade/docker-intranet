@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+./vagrant.d
+./auth/*
+./config/aws/*
+./ops/data/*
+./ops/logs/*
+./ops/backups/*
+./storage/ftp/.ssh
+./storage/public/*
+.ssh
+environment.sh
+=======
+.vagrant
+vagrant.d
+cache/*
+>>>>>>> 5bdc7c342b885763b9f5de8f5e8e08ef2b754213
