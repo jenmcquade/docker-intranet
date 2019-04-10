@@ -1,7 +1,5 @@
 Vagrant.configure("2") do |config|
 
-  config.vm.provision :docker
-
   ###
   #  BOX CONFIGURATIONS
   ###
@@ -10,6 +8,8 @@ Vagrant.configure("2") do |config|
   # config.vm.network "private_network", type: "dhcp"
   config.vm.box_check_update
   config.vm.hostname = "intranet"
+  config.vm.provision :docker
+  config.vm.boot_timeout = 30000
 
   ## You can force a publicly-accessible IP for your virtual machine instead of restricing to a private network. You would then forward ports in your router to the virtual machine.
   # config.vm.network "public_network", ip: "192.168.0.17"
