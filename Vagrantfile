@@ -133,8 +133,8 @@ EOC
 # Pull latest Intranet files from github and start up the main Docker containers
 config.vm.provision "shell", inline: <<-EOC
 sh /home/vagrant/intranet/generate-vagrant-env.sh
-if [ -f ./environment.sh ]; then
-  sh ./environment.sh
+if [ -f /home/vagrant/intranet/environment.sh ]; then
+  sh /home/vagrant/intranet/environment.sh
 fi
 cd /home/vagrant/intranet
 git pull origin master
