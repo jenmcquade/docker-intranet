@@ -98,12 +98,28 @@ services:
     image: ${DOCKER_ACCT}/ssl-tools:v${IWC_INTRANET_VERSION}
     build:
       context: docker-ssl/src
+    environment:
+      - CERTBOT_EMAIL=${CERTBOT_EMAIL}
+      - COUNRY=${COUNTRY}
+      - STATE=${STATE}
+      - LOCATION=${LOCATION}
+      - ORGANIZATION=${ORGANIZATION}
+      - ROOT_CN=${ROOT_CN}
+      - ISSUER_CN=${ISSUER_CN}
+      - PUBLIC_CN=${PUBLIC_CN}
+      - ROOT_NAME=${ROOT_NAME}
+      - ISSUER_NAME=${ISSUER_NAME}
+      - PUBLIC_NAME=${PUBLIC_NAME}
+      - RSA_KEY_NUMBITS=${RSA_KEY_NUMBITS}
+      - DAYS=${DAYS}
+      - KEYSTORE_NAME=${KEYSTORE_NAME}
+      - KEYSTORE_PASS=${KEYSTORE_PASS}
     container_name: ssl
     networks:
       - ops
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - ./certs/openssl:${CERT_DIR}
+      - ./certs:${CERT_DIR}
       - ./util:/intranet/util
     ports:
       - 6060:80

@@ -14,7 +14,8 @@ COPY ./scripts/ /scripts
 RUN chmod +x /scripts/*.sh
 
 # Add /scripts/startup directory to source more startup scripts
-RUN mkdir -p /scripts/startup
+RUN mkdir -p /scripts/startup && \
+  cp /scripts/generate_openssl.sh /scripts/startup
 
 # Copy in default nginx configuration (which just forwards ACME requests to
 # certbot, or redirects to HTTPS, but has no HTTPS configurations by default).
@@ -31,14 +32,11 @@ ENV ISSUER_CN "Indie Web Consulting"
 ENV PUBLIC_CN "*.example.com"
 ENV ROOT_NAME "root"
 ENV ISSUER_NAME "Indie Web Consulting"
-ENV PUBLIC_NAME "public"
+ENV PUBLIC_NAME "domain"
 ENV RSA_KEY_NUMBITS "2048"
 ENV DAYS "365"
 ENV KEYSTORE_NAME "keystore"
 ENV KEYSTORE_PASS "changeit"
 ENV CERT_DIR "/etc/letsencrypt/live"
 
-VOLUME /etc/letsencrypt/live
-
-ENTRYPOINT [tail -f /dev/null]
-CMD ["/bin/bash", "/scripts/entrypoint.sh"]
+CMD ["/bin/sh", "/scripts/entrypoint.sh"]
