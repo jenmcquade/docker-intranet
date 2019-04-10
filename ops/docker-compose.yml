@@ -118,9 +118,9 @@ services:
       com.iwc.notes.4: "This service is proxied behind aphex (see root docker-compose.yml)"
 
   redis:
-    image: ${DOCKER_ACCT}/redis:v1.0.0.0
+    image: ${DOCKER_ACCT}/redis:5.0
     build:
-      context: docker-redis
+      context: docker-redis/5.0/alpine
     container_name: redis
     networks:
       - ops
@@ -130,6 +130,22 @@ services:
     labels:
       com.iwc.type: "cache"
       com.iwc.description: "Save script output to memory instead of having to run them again"
+
+  registry:
+    env_file:
+     ./.env
+    image: registry:2
+    container_name: registry
+    ports:
+      - 5000:443
+    restart: always
+    volumes:
+      - ./docker-registry:/var/lib/registry
+      - ./certs:/certs
+    environment:
+      - "REGISTRY_HTTP_ADDR=${REGISTRY_HTTP_ADDR}"
+      - "REGISTRY_HTTP_TLS_CERTIFICATE=${REGISTRY_HTTP_ADDR}"
+      - "REGISTRY_HTTP_TLS_KEY=${REGISTRY_HTTP_TLS_KEY}"
     
 networks:
   ops:

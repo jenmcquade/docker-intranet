@@ -25,7 +25,7 @@ COPY nginx_conf.d/ /etc/nginx/conf.d/
 ENV COUNTY "US"
 ENV STATE "Washington"
 ENV LOCATION "Tacoma"
-ENV ORGANISATION "Indie Web Consulting"
+ENV ORGANIZATION "Indie Web Consulting"
 ENV ROOT_CN "Root"
 ENV ISSUER_CN "Indie Web Consulting"
 ENV PUBLIC_CN "*.example.com"
@@ -37,6 +37,8 @@ ENV DAYS "365"
 ENV KEYSTORE_NAME "keystore"
 ENV KEYSTORE_PASS "changeit"
 ENV CERT_DIR "/etc/letsencrypt/live"
+
+VOLUME /etc/letsencrypt/live
 
 ENTRYPOINT [tail -f /dev/null]
 CMD ["/bin/bash", "/scripts/entrypoint.sh"]
