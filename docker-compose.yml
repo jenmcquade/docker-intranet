@@ -4,8 +4,8 @@ services:
     env_file:
       - ./.env
     image: ${DOCKER_ACCT}/intranet_aphex:v${IWC_INTRANET_VERSION}
-    build:
-      context: ./dns/docker-nginx
+    #build:
+      #context: ./dns/docker-nginx
     deploy:
       mode: replicated
       replicas: 4
@@ -59,8 +59,8 @@ services:
     env_file:
       - ./.env
     image: ${DOCKER_ACCT}/intranet_dnsmasqd:v${IWC_INTRANET_VERSION}
-    build:
-      context: ./dns/docker-dnsmasq
+    #build:
+      #context: ./dns/docker-dnsmasq
     deploy:
       mode: replicated
       replicas: 2
@@ -93,8 +93,8 @@ services:
     env_file:
       - ./.env
     image: ${DOCKER_ACCT}/intranet_dnscrypt-proxy:v${IWC_INTRANET_VERSION}
-    build:
-      context: ./dns/docker-dnscrypt
+    #build:
+      #context: ./dns/docker-dnscrypt
     deploy:
       mode: replicated
       replicas: 2
