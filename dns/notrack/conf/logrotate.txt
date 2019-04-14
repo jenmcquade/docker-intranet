@@ -1,0 +1,10 @@
+/var/log/notrack.log
+{
+        daily
+        nocompress
+        missingok
+        copytruncate
+        postrotate
+        /usr/local/sbin/dns-log-archive /var/log/notrack.log.1        
+        endscript
+}

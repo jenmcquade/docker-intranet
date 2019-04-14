@@ -35,7 +35,7 @@ services:
       - ops
 
   portainer:
-    image: portainer/portainer
+    image: portainer/portainer:linux-arm64
     restart: always
     ports:
       - 8585:9000
@@ -63,7 +63,7 @@ services:
       com.iwc.description: "Templates for managine Portainer"
 
   watchtower:
-    image: v2tec/watchtower
+    image: v2tec/watchtower:armhf-latest
     container_name: "portainer-watchtower"
     command: --cleanup portainer-app portainer-watchtower portainer/templates
     networks:
@@ -78,7 +78,7 @@ services:
   aws-cli:
     image: ${DOCKER_ACCT}/aws-cli:v${IWC_INTRANET_VERSION}
     build:
-      context: aws/docker-aws-cli
+      context: aws
     container_name: "aws-cli"
     environment:
       - CLI_VERSION=1.16.138

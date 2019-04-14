@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM arm64v8/nginx:alpine
 LABEL maintainer="Jen McQuade <info@indiewebconsulting.com>"
 
 VOLUME /etc/letsencrypt

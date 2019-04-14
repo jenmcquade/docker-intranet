@@ -1,0 +1,26 @@
+@charset "utf-8";
+/*CSS to cover the extra items in charts*/
+.linechart-container {
+  margin: 1.5em 0.8em;
+  width: 98%;
+}
+.axistext {
+  font-family: Arial; 
+  font-size: 34px; 
+  fill: #202020;
+}
+.axisline {
+  fill:none;
+  stroke:#666666;
+  stroke-width:3;
+  stroke-opacity:1;
+}
+.gridline {
+  fill:none;
+  stroke:#888888;
+  stroke-width:1;
+  stroke-opacity:0.9;
+}
+.shadow {
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}

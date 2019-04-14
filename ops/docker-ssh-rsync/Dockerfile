@@ -2,7 +2,7 @@
 # virtual size: 10.74 MB
 
 # From Alpine Linux 3.2 official repo
-FROM alpine:edge
+FROM arm64v8/alpine:edge
 
 MAINTAINER Jen McQuade <info@indiewebconsulting.com>
 

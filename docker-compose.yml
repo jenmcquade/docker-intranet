@@ -1,11 +1,11 @@
 version: '3'
 services:
-  aphex:
+  rproxy:
     env_file:
       - ./.env
     image: ${DOCKER_ACCT}/intranet_aphex:v${IWC_INTRANET_VERSION}
-    #build:
-      #context: ./dns/docker-nginx
+    build:
+      context: ./dns/docker-nginx
     deploy:
       mode: replicated
       replicas: 4
@@ -166,7 +166,7 @@ services:
       - ${RSYNC_PORT}:873
       - ${SSH_PORT}:22
     environment:
-      - CERTS_DIR=/etc/letsencrypt/live
+      - CERT_DIR=${CERT_DIR}
     volumes:
       - .ssh/authorized_keys:/root/.ssh/authorized_keys
       - ./storage/ftp/public:/data/public

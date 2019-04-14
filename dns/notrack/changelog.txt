@@ -1,0 +1,28 @@
+v0.8.10 Released 03 Jun 2018
+Handle errors from wget such as connectivity or file missing when updating blocklists
+Updated location of CoinBlockerLists
+Removed No Coin Block list (most sites are in CoinBlockerLists)
+Split NoTrack block lists out of this project and moved them to GitLab
+
+*************************************************
+v0.8.9 Released 03 Mar 2018
+
+New Styling
+Added Incognito mode
+Pause/Unpause no longer requires page refresh
+Added API
+Fixed bug of notrack not updating blocklist after pausing
+
+*************************************************
+v0.8.8 Released 22 Jan 2018
+
+Added Coin Blocker Lists
+Improved access into Investigate from DNS Queries
+Reduced list download check from 4 days to 3 days
+Downgraded .ws from priority 1 to priority 2 on TLD blocklist
+New style login screen
+
+#200 - Enabled changing password without turning off security
+
+*************************************************
+

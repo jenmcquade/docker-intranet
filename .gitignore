@@ -10,3 +10,4 @@ storage/public/*
 .ssh
 environment.sh
 .themes
+*.log*

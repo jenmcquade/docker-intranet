@@ -1,0 +1,46 @@
+0. All good
+1. User aborted
+4. Command shouldn't be run as root
+5. Command should be run as root
+6. Unknown command
+7. Unknown Block list setting
+8. NoTrack already running
+10. Sudo command missing
+11. Unknown Network Device
+12. Unknown IP Version
+13. Unable to Detect IP Address
+14. Download of NoTrack failed
+15. Unable to work out Install folder
+20. Can't find ntrk-upgrade
+21. ntrk-upgrade requires Root access
+22. Unable to find NoTrack folder
+23. Download of NoTrack has failed
+24. Misc File missing
+25. notrack.sh missing
+26. ntrk-exec missing
+27. ntrk-pause missing
+28. ntrk-upgrade missing
+29. ntrk-parse missing
+30. Network Error
+31. unused
+32. unused
+33. unused
+34. unused
+35. MariaDB setup failed
+41. Create SSL Cert - Lighttpd missing
+42. Create SSL Cert - OpenSSL missing
+43. Create SSL Cert - Certificate file not created
+44. Create SSL Cert - Serious failure
+45. Create SSL Cert - Failed, but Lighttpd restored
+50. Dnsmasq Missing
+51. Dnsmasq Version Unknown
+52. Dnsmasq doesn't support whitelisting (below 2.75)
+53. Dnsmasq supports whitelisting (2.75 and above)
+60. mysql not installed
+100. Blocking Paused
+101. Blocking Disabled
+102. Old config exists, but status unknown
+103. NoTrack already running
+110. ntrk-parse - Nothing much in log
+111. ntrk-parse already running
+112. ntrk-parse exiting after log copy

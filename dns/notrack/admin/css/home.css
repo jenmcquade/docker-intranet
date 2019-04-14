@@ -1,0 +1,104 @@
+ @charset "utf-8";
+/*Home Nav**********************************************************/
+.home-nav-container {
+  padding: 1em 7%;
+}
+.home-nav {
+/*   background-color: #F7F7F7; */
+  background-color: rgba(247, 247, 247, 0.95);
+/*   box-shadow: 1px 1px 3px rgb(136, 136, 136); */
+  text-align:center;
+  padding: 0 2% 2% 2%;
+  margin: 1em 1% 2% 1%;
+  border-left: 7px solid #21BBFF;
+  border-radius: 2px;
+  width: 26%;
+  height: 14.4rem;
+  float: left;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+}
+
+.home-nav h2 {
+  margin: 0.1rem 0 0.4rem 0;
+  padding-top: 10px;
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #202020;
+}
+.home-nav h3 {
+  margin: 0.1rem 0 0.4rem 0;
+  padding-top: 10px;
+  font-size: 3em;
+  font-weight: bold;
+}
+.home-nav hr {
+  border-color: #21BBFF;
+  margin:0 !important;
+}
+.home-nav span {
+  float:left;
+  font-size: 2em;
+  padding-top: 1.5rem;
+  color: #202020;
+  width: 50%;
+  display: block;
+}
+.chart-box {
+  margin-top: 1.5rem;
+  float:right;  
+  width: 40%;
+  max-width: 10rem;
+}
+.icon-box {
+  margin-top: 1.5rem;
+  padding-top: 0.7rem;
+  float:right;
+  border-radius: 50%;
+  border: 2px solid #777;
+  width: 40%;
+  max-width: 10rem;
+}
+.icon-box img {
+  width: 80%;
+  padding-bottom: 0.9rem;
+}
+@media only screen and (max-width:1200px), only screen and (max-device-width:1200px) {  /*Windowed view for Home Nav*/
+  .home-nav-container {
+    padding: 1em 4%;
+  }   
+  .home-nav {
+    width: 42%;
+    margin: 0 1.2% 2% 1.2%;
+  }
+}
+@media only screen and (max-width:480px), only screen and (max-device-width:480px) {   /*Mobile view for Home Nav*/
+  .home-nav-container {
+    padding: 1em 1%;
+    width: 90%;
+    margin: 0 auto;
+  }
+  .home-nav {
+    width: 93%;    
+    margin: 1.5em 0;
+    height: 19rem;
+  }
+  .home-nav span {
+    width: 55%;
+  }
+  .chart-box, .icon-box {
+    width: 28%;
+    max-width: 14rem;
+    margin-right: 5%;
+  }
+}
+
+.home-bggreen {
+  background-color: rgba(0, 255, 127, 0.9);
+}
+.home-bgred {
+  background-color: rgba(147, 30, 63, 0.9);
+}
+.home-bgyellow {
+  background-color: rgba(250, 218, 110, 0.9);
+}
+

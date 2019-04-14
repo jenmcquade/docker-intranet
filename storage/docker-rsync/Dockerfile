@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM arm64v8/debian:stretch-slim
 MAINTAINER Jen McQuade <info@indiewebconsulting>
 
 ENV DEBIAN_FRONTEND noninteractive

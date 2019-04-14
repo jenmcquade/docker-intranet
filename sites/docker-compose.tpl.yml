@@ -4,7 +4,7 @@ services:
   wp:
     env_file:
       - ./.env
-    image: wordpress:latest # https://hub.docker.com/_/wordpress/
+    image: arm64v8/wordpress:latest # https://hub.docker.com/_/wordpress/
     ports:
       - ${IP}:${WP_PORT}:80
     volumes:
@@ -28,7 +28,7 @@ services:
   wpcli:
     env_file:
       ./.env
-    image: wordpress:cli
+    image: arm64v8/wordpress:cli
     volumes:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./wp-app:/var/www/html
@@ -43,7 +43,7 @@ services:
   db:
     env_file:
       ./.env
-    image: mysql:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
+    image: arm64v8/mysql:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
     ports:
       - ${IP}:${MYSQL_PORT}:3306 # change ip if required
     command: [

@@ -1,0 +1,113 @@
+<section>
+<div class="sys-group">
+<div class="sys-title"><h5>Adding New Block list</h5></div>
+<div class="sys-items">
+<p>In this example I'll be creating a new blocklist called <i>foo</i>. You need to make modifications in three files: notrack.sh, global-functions.php, and config.php<br>
+<br>
+<article>
+<header><h6>Changes in notrack.sh</h6></header>
+<p>Add to the <b>Config array</b> the name of the new blocklist, with a value of either:</p>
+<ul>
+<li>0: default to off</li>
+<li>1: default to on</li>
+</ul>
+<pre><code><span class="pink">declare</span> -A <span class="green">Config</span>
+
+<span class="green">Config[blocklist_someonewhocares]=</span>0
+<span class="green">Config[blocklist_spam404]=</span>0
+<span class="green">Config[blocklist_foo]=</span>0
+</code></pre>
+<br>
+
+<p>Add the URL to URLList array</p>
+<pre><code><span class="pink">declare</span> -A <span class="green">URLList</span>
+
+<span class="green">URLList[spam404]=</span><span class="red">"https://raw.githubusercontent.com/Dawsey21/Lists/master/adblock-list.txt"</span>
+<span class="green">URLList[pglyoyo]=</span><span class="red">"http://pgl.yoyo.org/adservers/serverlist.php"</span>
+<span class="green">URLList[foo]=</span><span class="red">"http://foobar.com/blocklist.txt"</span>
+</code></pre>
+<br>
+
+<p>Add the Blocklist name to the Read_Config_File function, which will load the settings from /etc/notrack/notrack.conf over the default value set above.</p>
+<pre><code><span class="purple">Read_Config_File()</span> <b>{</b>
+&nbsp;&nbsp;<b>case</b> <span class="red">"</span><span class="green">$Key</span><span class="red">"</span> in
+&nbsp;&nbsp;&nbsp;&nbsp;BlockList_SomeoneWhoCares) <span class="green">Config[blocklist_someonewhocares]=</span><span class="red">"</span>$Value<span class="red">"</span><b>;;</b>
+&nbsp;&nbsp;&nbsp;&nbsp;BlockList_Spam404) <span class="green">Config[blocklist_spam404]=</span><span class="red">"</span>$Value<span class="red">"</span><b>;;</b>
+&nbsp;&nbsp;&nbsp;&nbsp;BlockList_Foo) <span class="green">Config[blocklist_foo]=</span><span class="red">"</span>$Value<span class="red">"</span><b>;;</b>
+&nbsp;&nbsp;<b>esac</b>
+</code></pre>
+<br>
+
+<p>In order to get NoTrack to process the list it needs three pieces of information: <p>
+<ol>
+<li>Blocklist name</li>
+<li>The type of list it is</li>
+<li>Time in seconds between downloading a new copy of the list</li>
+</ol>
+<br>
+<pre><code><span class="pink">GetList</span> <span class="red">"someonewhocares" "unix127"</span> 345600 <span class="gray">#4 Days</span>
+<span class="pink">GetList</span> <span class="red">"spam404" "easylist"</span> 172800        <span class="gray">#2 Days</span>
+<span class="pink">GetList</span> <span class="red">"foo" "plain"</span> 604800               <span class="gray">#7 Days</span></code></pre>
+<br>
+<p>NoTrack can process four different kinds of lists: <i>plain, easylist, Unix0, </i> and <i>Unix127</i></p>
+<p>Plain lists contain a list of URL's with optional hash # comments:</p>
+<pre><code>analytics.yahoo.com
+ads.yahoo.com
+mc.yandex.ru
+pixel.wp.com #Wordpress
+stats.wp.com #Wordpress</code></pre>
+
+<p>Unix127 (Unix list with 127.0.0.1 as loopback address) look like this:</p>
+<pre><code>127.0.0.1 a.admob.com
+127.0.0.1 analytics.admob.com</code></pre>
+
+<p>Unix0 (Unix list with 0.0.0.0 as loopback address) is the similar to the Unix127 list, but with 0.0.0.0 instead of 127.0.0.1:</p>
+<pre><code>0.0.0.0 a.admob.com
+0.0.0.0 analytics.admob.com</code></pre>
+
+<p>EasyLists are used with Adblock+ and uBlock</p>
+<br>
+<p>That covers the changes required in notrack.sh, now to add the block list to the Admin web page.</p>
+<br>
+</article>
+<br>
+
+<article>
+<header><h6>Changes in global-functions.php</h6></header>
+<p>Add the new blocklist foo to the function LoadConfigFile().</p>
+<p>The users config file /etc/notrack/notrack.conf may not have all variables required, therefore we need to add any variables that are missing to the $Config array</p>
+<pre><code><b>function</b> LoadConfigFile<span class="green">()</span> {
+  <span class="gray">//Set defult values if keys don't exist</span>
+  if <span class="green">(</span>!<span class="purple">array_key_exists</span><span class="green">(</span><span class="red">'BlockList_SomeoneWhoCares'</span>, <span class="blue">$Config</span><span class="green">))</span> 
+    <span class="blue">$Config</span> += <span class="purple">array</span><span class="green">(</span><span class="red">'BlockList_SomeoneWhoCares'</span> => 0<span class="green">)</span>;
+  if <span class="green">(</span>!<span class="purple">array_key_exists</span><span class="green">(</span><span class="red">'BlockList_Spam404'</span>, <span class="blue">$Config</span><span class="green">))</span> 
+    <span class="blue">$Config</span> += <span class="purple">array</span><span class="green">(</span><span class="red">'BlockList_Spam404'</span> => 0<span class="green">)</span>;
+  if <span class="green">(</span>!<span class="purple">array_key_exists</span><span class="green">(</span><span class="red">'BlockList_Foo'</span>, <span class="blue">$Config</span><span class="green">))</span> 
+    <span class="blue">$Config</span> += <span class="purple">array</span><span class="green">(</span><span class="red">'BlockList_Foo'</span> => 0<span class="green">)</span>;</code></pre>
+</article>
+<br>
+<br>
+
+<article>
+<header><h6>Changes in config.php</h6></header>
+
+<p>Add new block list foo to the config.php?v=blocks page</p>
+<p>DrawBlockListRow is a function to add new table line in and fill it with the necessary values, it takes the variables:<br>
+Form box name, Name in $Config array, Item name, Message</p>
+<pre><code><b>function</b> DisplayBlockLists<span class="green">()</span> {
+  DrawBlockListRow(<span class="red">'bl_spam404'</span><span class="green">,</span> <span class="red">'BlockList_Spam404'</span><span class="green">,</span> <span class="red">'Spam404'</span><span class="green">,</span> <span class="red">'&lt;a href="http://www.spam404.com/"&gt;(www.spam404.com)&lt;/a&gt;'</span><span class="green">)</span>;
+  DrawBlockListRow(<span class="red">'bl_foo'</span><span class="green">,</span> <span class="red">'BlockList_Foo'</span><span class="green">,</span> <span class="red">'Foo'</span><span class="green">,</span> <span class="red">'Foobar is the best list ever'</span><span class="green">)</span>;
+</code></pre>
+<br>
+
+<p>Finally, we need to make add Foo to the UpdateBlockListConfig function, which will read the HTTP POST request variables.</p>
+<p>POST variables for blocklists are filtered using the Filter_Config function, to prevent invalid settings from entering the $Config array, and being subsequently saved to the notrack.conf file.
+<pre><code><b>function</b> LoadConfigFile<span class="green">()</span> {
+  <span class="blue">$Config</span><span class="green">[</span><span class="red">'BlockList_SomeoneWhoCares'</span><span class="green">]</span> = Filter_Config<span class="green">(</span><span class="red">'bl_someonewhocares'</span><span class="green">)</span>;
+  <span class="blue">$Config</span><span class="green">[</span><span class="red">'BlockList_Spam404'</span><span class="green">]</span> = Filter_Config<span class="green">(</span><span class="red">'bl_spam404'</span><span class="green">)</span>;
+  <span class="blue">$Config</span><span class="green">[</span><span class="red">'BlockList_Foo'</span><span class="green">]</span> = Filter_Config<span class="green">(</span><span class="red">'bl_foo'</span><span class="green">)</span>;
+</code></pre>
+
+</article>
+</div></div>
+</section>
