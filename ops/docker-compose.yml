@@ -5,7 +5,7 @@ services:
   firewall:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_firewall:v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_firewall:arm64v8-v${IWC_INTRANET_VERSION}
     build:
       context: ./docker-firewall
     restart: always
@@ -20,8 +20,10 @@ services:
      - FW_STATIC=${FW_STATIC}
 
   cadvisor:
-    image: google/cadvisor
+    image: ${DOCKER_ACCT}/cadvisor:arm64v8
     container_name: cadvisor
+    build:
+      - context: docker-cadvisor
     volumes:
       - /:/rootfs:ro 
       - /var/run:/var/run:ro 
@@ -76,7 +78,7 @@ services:
       com.iwc.description: "updates docker containers dynamically with Portainer"
 
   aws-cli:
-    image: ${DOCKER_ACCT}/aws-cli:v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/aws-cli:arm64v8-v${IWC_INTRANET_VERSION}
     build:
       context: aws
     container_name: "aws-cli"
@@ -95,7 +97,7 @@ services:
   ssl:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/ssl-tools:v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/ssl-tools:arm64v8-v${IWC_INTRANET_VERSION}
     build:
       context: docker-ssl/src
     environment:
@@ -134,7 +136,7 @@ services:
       com.iwc.notes.4: "This service is proxied behind aphex (see root docker-compose.yml)"
 
   redis:
-    image: ${DOCKER_ACCT}/redis:5.0
+    image: ${DOCKER_ACCT}/redis:arm64v8-5.0
     build:
       context: docker-redis/5.0/alpine
     container_name: redis

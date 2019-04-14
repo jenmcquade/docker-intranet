@@ -3,25 +3,36 @@ services:
   rproxy:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_aphex:v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_aphex:arm64-v${IWC_INTRANET_VERSION}
     build:
-      context: ./dns/docker-nginx
+      context: ./dns/docker-php-nginx
     deploy:
       mode: replicated
       replicas: 4
-    container_name: aphex
+    container_name: rpoxy
     restart: always
     logging:
       driver: "json-file"
       options:
         max-size: "100M"
     environment:
-      - CERTS_DIR=/etc/letsencrypt/live
+      - CERT_DIR=${CERT_DIR}
+      - NGINX_VERSION=1.15.11
+      - FFMPEG_VERSION=4.1.3
+      - CFLAGS=${CFLAGS}
     ports:
       - ${HTTP_ACCESS_PORT}:80
       - ${SSL_ACCESS_PORT}:443
+      - ${RTMP_P1}:1935
+      - ${SMB_TCP_PORT1}:139
+      - ${SMB_TCP_PORT2}:445
+      - ${SMB_UDP_PORT1}:137
+      - ${SMB_UDP_PORT2}:138
+      - ${PLEX_PORT}:32400
+      - ${HTTP_SECONDARY}:8080
     volumes:
-      - ./sites:/var/www
+      - ./sites:/var/www/html
+      - ./ops/certs:/etc/letsencrypt/live
       - ./config/nginx/sites-available:/etc/nginx/sites-available
       - ./config/nginx/sites-enabled:/etc/nginx/sites-enabled
       - ./config/nginx/conf.d:/etc/nginx/conf.d
@@ -33,32 +44,14 @@ services:
       - home
       - ops
     labels:
-      com.iwc.stack: "alpine, php, nginx"
+      com.iwc.stack: "alpine, php, nginx, ffmpg, and rtmp services with support for xdebug, vnc and other passthrough ports"
       com.iwc.description: "Reverse proxy handling of DNS entries"
       com.iwc.type: "proxy"
-
-  firewall:
-    env_file:
-      - ./.env
-    image: ${DOCKER_ACCT}/intranet_firewall:v${IWC_INTRANET_VERSION}
-    build:
-      context: ops/docker-firewall
-    container_name: firewall
-    restart: always
-    cap_add:
-      - NET_ADMIN
-    network_mode: host
-    labels:
-      com.iwc.stack: "alpine"
-      com.iwc.description: "Global firewall rules for Docker containers"
-      com.iwc.type: "utility"
-      com.iwc.context: "NET_ADMIN"
-      com.iwc.network_mode: "host"
 
   dnsmasqd:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_dnsmasqd:v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_dnsmasqd:arm64v8-v${IWC_INTRANET_VERSION}
     #build:
       #context: ./dns/docker-dnsmasq
     deploy:
@@ -92,7 +85,7 @@ services:
   dnscryptd:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_dnscrypt-proxy:v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_dnscrypt-proxy:arm64v8-v${IWC_INTRANET_VERSION}
     #build:
       #context: ./dns/docker-dnscrypt
     deploy:
@@ -125,7 +118,7 @@ services:
   smbd:
    env_file:
      - ./.env
-   image: ${DOCKER_ACCT}/intranet_smbd:v${IWC_INTRANET_VERSION}
+   image: ${DOCKER_ACCT}/intranet_smbd:arm64v8-v${IWC_INTRANET_VERSION}
    build:
      context: ./storage/docker-samba
    deploy:
@@ -158,7 +151,7 @@ services:
   rsync:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_rsync:v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_rsync:arm64v8-v${IWC_INTRANET_VERSION}
     container_name: rsync
     build:
       context: ./storage/docker-rsync
