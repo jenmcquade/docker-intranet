@@ -1,16 +1,21 @@
 version: '3'
 services:
-  rproxy:
+  adanprfx:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_aphex:arm64-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_adanprfx:arm64-v${IWC_INTRANET_VERSION}
     build:
       context: ./dns/docker-php-nginx
     deploy:
       mode: replicated
       replicas: 4
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120x
     container_name: rpoxy
-    restart: always
+    restart: unless-stopped
     logging:
       driver: "json-file"
       options:
@@ -57,11 +62,16 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
     container_name: dnsmasq
     network_mode: host
     cap_add:
       - NET_ADMIN
-    restart: always
+    restart: unless-stopped
     logging:
       driver: "json-file"
       options:
@@ -91,6 +101,11 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+    restart: unless-stopped
     container_name: dnscrypt
     ports:
       - ${DNSCRYPT_UDP}:53/udp
@@ -124,6 +139,12 @@ services:
    deploy:
      mode: replicated
      replicas: 2
+     restart_policy:
+       condition: on-failure
+       delay: 5s
+       max_attempts: 3
+       window: 120s
+   restart: unless-stopped
    container_name: smbd
    environment:
       - CERTS_DIR=/etc/letsencrypt/live

@@ -8,7 +8,13 @@ services:
     image: ${DOCKER_ACCT}/intranet_firewall:arm64v8-v${IWC_INTRANET_VERSION}
     build:
       context: ./docker-firewall
-    restart: always
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    restart: unless-stopped
     container_name: firewall
     cap_add:
       - NET_ADMIN
@@ -23,7 +29,7 @@ services:
     image: ${DOCKER_ACCT}/cadvisor:arm64v8
     container_name: cadvisor
     build:
-      - context: docker-cadvisor
+      context: docker-cadvisor
     volumes:
       - /:/rootfs:ro 
       - /var/run:/var/run:ro 
@@ -38,7 +44,7 @@ services:
 
   portainer:
     image: portainer/portainer:linux-arm64
-    restart: always
+    restart: unless-stopped
     ports:
       - 8585:9000
     container_name: portainer
