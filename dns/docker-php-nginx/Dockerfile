@@ -1,30 +1,31 @@
-#----------------------------
-# ARM64 ALPINE DOCKER NGINX PHP-FPM RTMP FFMPEG XDEBUG
-# AADNPRFX - Benchmarking build
-# A) Custom builds using Debian Stretch and Alpine aarch64/arm64 targeting
-# A) Stretch builder files are copied to Alpine
-# D) A completed Docker image that runs web.conf configurations and Laravel on entry of the container
+#-----
+# ARM64 DOCKER ALPINE NGINX PHP-FPM RTMP FFMPEG XDEBUG
+# ADANPRFX - Benchmarking build
+# A) Custom builds implementing Debian Stretch and Alpine aarch64/arm64 CPU targeting
+# D) A completed Docker image that runs web.conf configurations and Laravel on entry of the container, to initiate Nginx, run custom entrypoint scripts, and debug remotely
+# A) Debian Stretch builder output files are copied to a final php:fpm-alpine container 
 # N) Nginx custom built with all supported modules, including OpenSSL, nginx-rtmp, and gperftools for performance monitoring
-# P) PHP-FPM for other Nginx instances to connect to for computing tasks, Laravel and XDEBUG support
+# P) PHP-FPM for other Nginx instances to connect to for computing tasks, with Composer, Laravel and XDEBUG support
 # R) The FOSS RTMP Nginx module built into Nginx
-# F) FFMPEG for multimedia streaming tasks
-# X) XDEBUG, and expansion through additional entrypoint scripts and Nginx configurations    
+# F) FFMPEG custom build for multimedia streaming tasks
+# X) XDEBUG, and eXpansion through additional entrypoint scripts and Nginx configurations    
 #
 #
-# !PRIMARY SUPERVISOR FOR ALL IWC INTRANET WEB APPS!
+# !PRIMARY HTTP/SSL SUPERVISOR FOR ALL IWC INTRANET WEB APPS!
 # 
 #
 # THERE BE DRAGONS
-#  -- This is an experimental Docker staged build, although no custom community universes/repos are used except for the nginx rtmp module
-#  -- Is regularly patched to assist in the update containers already running in the Cloud
-#  -- It's contradictory by implementation:
-#       Alpine as a small OS package
-#       but then bloats Nginx with
-#       every supported module.
+#  -- This is an experimental Docker staged build -- no custom community universes/repos are used except for the nginx rtmp module and Alpine edge 
+#  -- Master is regularly patched to assist in updating containers already running in the Cloud
+#  -- If you find a release of this file that works for you, it's probably best to stay at that version for a while unless you like regression
+#  -- This build is contradictory by implementation:
+#       Alpine is a small OS package
+#       but is the largest Nginx package possible, 
+#       with every officially supported module.
 #  -- There are much, much smaller Nginx packages out there
-#  -- There are also more performant Nginx packages
-#  -- There are no other known Docker Nginx packages that support Alpine on aarch64/arm64 devices, with all performance and dev tools enabled
-#  -- Long live the benchmark; fight them dragons with pull requests
+#  -- There are also more performant Nginx packages everywhere
+#  -- There are no other easy-to-find Docker Nginx packages that support Alpine on aarch64/arm64 devices, with all performance and dev tools enabled. Community support is limited.
+#  -- Long live the benchmark; fight them dragons with pull requests, please
 #
 #
 # COMPONENTS/SERVICES
@@ -120,7 +121,7 @@ RUN \
 
 # Compile nginx with nginx-rtmp module, openssl, gperftools and brotli libraries.
 # DEV NOTE: You can set the $CFLAGS in your environment or docker-compose.yml to modify GCC build configurations, if you get warnings that break the Docker build.
-# By far, this is the most breakable stage
+# By far, this is the most breakable stage of the build
 FROM gperftools AS build-nginx
 RUN \
   cd /build/nginx-${NGINX_VERSION} \
@@ -289,8 +290,10 @@ COPY --from=build-nginx /etc/nginx /etc/nginx
 COPY --from=build-ffmpeg /usr/local /usr/local
 COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
-# Dynamic Nginx modules and Certbot components # These don't need to be added during build time, so they're safest to install in Alpine
-RUN \
+# Dynamic Nginx modules and Certbot components 
+# These don't need to be added during build time, so they're safest to install in Alpine, since that's our final output
+RUN \# D) A completed Docker image that runs web.conf configurations and Laravel on entry of the container
+
   apk --update add \
   nginx-plus-module-brotli \
   nginx-plus-module-image-filter \
