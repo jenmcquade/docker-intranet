@@ -1,9 +1,9 @@
 version: '3'
 services:
-  adanprfx:
+  adan:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_adanprfx:arm64-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/adan:prfx-arm64-v${IWC_INTRANET_VERSION}
     build:
       context: ./dns/docker-php-nginx
     deploy:

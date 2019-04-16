@@ -1,6 +1,10 @@
-#-----
+#-------------------------------------
+# v1.0.0 build for IWC Intranet
+#
 # ARM64 DOCKER ALPINE NGINX PHP-FPM RTMP FFMPEG XDEBUG
-# ADANPRFX - Benchmarking build
+# **********************************
+# ADAN : PRFX - Benchmarking build
+# **********************************
 # A) Custom builds implementing Debian Stretch and Alpine aarch64/arm64 CPU targeting
 # D) A completed Docker image that runs web.conf configurations and Laravel on entry of the container, to initiate Nginx, run custom entrypoint scripts, and debug remotely
 # A) Debian Stretch builder output files are copied to a final php:fpm-alpine container 
@@ -292,8 +296,7 @@ COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
 # Dynamic Nginx modules and Certbot components 
 # These don't need to be added during build time, so they're safest to install in Alpine, since that's our final output
-RUN \# D) A completed Docker image that runs web.conf configurations and Laravel on entry of the container
-
+RUN \
   apk --update add \
   nginx-plus-module-brotli \
   nginx-plus-module-image-filter \
