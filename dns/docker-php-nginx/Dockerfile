@@ -267,14 +267,15 @@ FROM arm64v8/php:7.3.4-fpm-alpine as stage1
 
 LABEL MAINTAINER Jen McQuade <info@indiewebconsulting.com>
 
-ENV CERT_DIR=/etc/letsencrypt/live
+ENV CERT_DIR /etc/letsencrypt/live
 
 RUN apk update \
   && apk add \
   ca-certificates \
   openssl \
   curl \
-  pcre \
+  pcre \ 
+  libxml2 \
   lame \
   libogg \
   libass \
@@ -294,47 +295,38 @@ COPY --from=build-nginx /etc/nginx /etc/nginx
 COPY --from=build-ffmpeg /usr/local /usr/local
 COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
-# Dynamic Nginx modules and Certbot components 
-# These don't need to be added during build time, so they're safest to install in Alpine, since that's our final output
 RUN \
   apk --update add \
-  nginx-plus-module-brotli \
-  nginx-plus-module-image-filter \
-  nginx-plus-module-cookie-flag \
-  nginx-plus-module-encrypted-session \
-  nginx-plus-module-geoip2 \
-  nginx-plus-module-headers-more \
-  nginx-plus-module-subs-filter \
-  nginx-plus-module-njs \
-  nginx-plus-module-modsecurity \
-  nginx-plus-module-opentracing \
-  nginx-plus-module-passenger \
-  nginx-plus-module-set-misc \
-  nginx-plus-module-perl \
-  python3-certbot-nginx \
-  certbot \
-  libssl-dev \
-  libmemcached-libs \
-  libmemcached-dev \
-  ## PHP STUFF
-  libfreetype6-dev \
-  libjpeg62-turbo-dev \
+  certbot \ 
+  # PHP MODULE INSTALLER PREREQS
+  libxml2-dev \
+  freetype-dev \
+  libjpeg-turbo-dev \
   libpng-dev \
-  && docker-php-ext-install-j$(nproc) iconv mysqli pdo pdo_mysql \
-  && docker-php-configure gd --with-freetype-dir=/usr/include --with-jpg-dir=/usr/include \ 
-  && docker-php-ext-install -j$(nproc) gd
+  bzip2-dev \ 
+  net-snmp-dev \
+  php7-tidy \   
+  tidyhtml-dev \ 
+  libxslt-dev \
+  libzip-dev
+
+# ADDITIONAL PHP MODULES
+RUN \
+  docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpg-dir=/usr/include && \ 
+  docker-php-ext-install -j$(nproc) mysqli snmp soap sockets tidy tokenizer xml xmlrpc xsl zip gd
   
 # Add NGINX config and static files.
-ADD nginx.conf /etc/nginx/nginx.conf
-RUN mkdir -p /opt/data && mkdir /var/www/html
-ADD app/ /var/www/html
-ADD certs/ ${CERT_DIR}
+ADD conf/nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /opt/data
+ADD app /var/www/html
 
 # Ensure we keep some folders open for sharing
-VOLUME /etc/letsencrypt/live
+VOLUME ${CERT_DIR}
 VOLUME /etc/nginx/conf.d
 VOLUME /opt/data
 VOLUME /var/www/html
+
+COPY certs ${CERT_DIR}
 
 #
 #--------------------------------------------------------------------------
@@ -354,7 +346,7 @@ ENV PATH="$PATH:/var/www/html"
 
 WORKDIR /var/www/html
 
-RUN touch /var/log/cron/cron.log
+RUN mkdir -p /var/log/cron && touch /var/log/cron/cron.log
 
 ENV SCHEDULE_LOG_PATH /var/log/cron/cron.log
 
@@ -369,16 +361,15 @@ ENTRYPOINT ["/var/entrypoints/laravel"]
 CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisord/web.conf"]
 
 RUN mkdir /var/cache/nginx \
-  && chmod nginx:root /var/cache/nginx
+  && chown root:root /var/cache/nginx
 
 # Add prerequisites for xdebug
 RUN apk add --no-cache $PHPIZE_DEPS
 
-# Install xdebug, redis and memcached using pecl -- Always use version numbers for these
+# Install xdebug, redis using pecl -- Always use version numbers for these
 RUN pecl install xdebug-2.7.0 \
   && pecl install redis-4.0.1 \
-  && pecl install memcached-2.2.0 \
-  && docker-php-ext-enable redis xdebug memcached
+  && docker-php-ext-enable redis xdebug
 
 # Configure xdebug for remote debugging with PhpStorm
 RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \

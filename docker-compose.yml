@@ -37,7 +37,7 @@ services:
       - ${HTTP_SECONDARY}:8080
     volumes:
       - ./sites:/var/www/html
-      - ./ops/certs:/etc/letsencrypt/live
+        # - ./ops/certs:/etc/letsencrypt/live
       - ./config/nginx/sites-available:/etc/nginx/sites-available
       - ./config/nginx/sites-enabled:/etc/nginx/sites-enabled
       - ./config/nginx/conf.d:/etc/nginx/conf.d
