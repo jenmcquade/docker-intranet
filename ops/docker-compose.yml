@@ -67,6 +67,8 @@ services:
       com.iwc.stack: "Alpine, Portainer console"
 
   templates:
+    env_file:
+      - ./.env
     image: ${DOCKER_ACCT}/portainer-templates:${PROC_TYPE}
     container_name: "templates"
     build:
@@ -87,7 +89,8 @@ services:
       context: portainer
       dockerfile: Dockerfile_Watchtower
       args:
-        buildtype: latest
+        - PROC_TYPE=${PROC_TYPE}
+        - BUILD_TYPE=latest
     container_name: "watchtower"
     command: --cleanup portainer watchtower templates
     environment:
