@@ -82,7 +82,7 @@ services:
   watchtower:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/watchtower:${BUILD_TYPE}
+    image: ${DOCKER_ACCT}/watchtower:${PROC_TYPE}
     build:
       context: portainer
       dockerfile: Dockerfile_Watchtower
