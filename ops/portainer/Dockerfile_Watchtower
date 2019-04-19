@@ -1,0 +1,5 @@
+FROM v2tec/watchtower:armhf-latest
+ARG proctype
+ENV PROC_TYPE arm64
+ENV BUILD_TYPE armhf-latest
+

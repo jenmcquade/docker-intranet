@@ -5,7 +5,7 @@ services:
   firewall:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_firewall:arm64v8-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_firewall:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
     build:
       context: ./docker-firewall
     deploy:
@@ -20,13 +20,15 @@ services:
       - NET_ADMIN
     network_mode: host
     environment:
-     - FW_SERVICE=${FW_SERVICE}
-     - FW_PROTO=${FW_PROTO}
-     - FW_PORTS=${FW_PORTS}
-     - FW_STATIC=${FW_STATIC}
+      - FW_SERVICE=${FW_SERVICE}
+      - FW_PROTO=${FW_PROTO}
+      - FW_PORTS=${FW_PORTS}
+      - FW_STATIC=${FW_STATIC}
 
   cadvisor:
-    image: ${DOCKER_ACCT}/cadvisor:arm64v8
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/cadvisor:${PROC_TYPE}
     container_name: cadvisor
     build:
       context: docker-cadvisor
@@ -43,7 +45,11 @@ services:
       - ops
 
   portainer:
-    image: portainer/portainer:linux-arm64
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/portainer:${PROC_TYPE}
+    build: 
+      context: portainer
     restart: unless-stopped
     ports:
       - 8585:9000
@@ -61,8 +67,11 @@ services:
       com.iwc.stack: "Alpine, Portainer console"
 
   templates:
-    image: portainer/templates
-    container_name: "portainer-templates"
+    image: ${DOCKER_ACCT}/portainer-templates:${PROC_TYPE}
+    container_name: "templates"
+    build:
+      context: portainer
+      dockerfile: Dockerfile_Templates
     networks:
       - home
       - ops
@@ -71,9 +80,18 @@ services:
       com.iwc.description: "Templates for managine Portainer"
 
   watchtower:
-    image: v2tec/watchtower:armhf-latest
-    container_name: "portainer-watchtower"
-    command: --cleanup portainer-app portainer-watchtower portainer/templates
+    env_file:
+      - ./.env
+    image: ${DOCKER_ACCT}/watchtower:${BUILD_TYPE}
+    build:
+      context: portainer
+      dockerfile: Dockerfile_Watchtower
+      args:
+        buildtype: latest
+    container_name: "watchtower"
+    command: --cleanup portainer watchtower templates
+    environment:
+      - BUILD_TYPE=`if [ ${PROC_TYPE} = "arm64" ]; then echo "armhf-"; else echo ""; fi`
     networks:
       - home
       - ops
@@ -81,10 +99,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.iwc.type: "ops"
-      com.iwc.description: "updates docker containers dynamically with Portainer"
+      com.iwc.description: "updates docker containers dynamically with Portainer"  
 
   aws-cli:
-    image: ${DOCKER_ACCT}/aws-cli:arm64v8-v${IWC_INTRANET_VERSION}
+    env_file:
+     - ./.env
+    image: ${DOCKER_ACCT}/aws-cli:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
     build:
       context: aws
     container_name: "aws-cli"
@@ -103,7 +123,7 @@ services:
   ssl:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/ssl-tools:arm64v8-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/ssl-tools:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
     build:
       context: docker-ssl/src
     environment:
@@ -142,7 +162,9 @@ services:
       com.iwc.notes.4: "This service is proxied behind aphex (see root docker-compose.yml)"
 
   redis:
-    image: ${DOCKER_ACCT}/redis:arm64v8-5.0
+    env_file:
+      - ./.env 
+    image: ${DOCKER_ACCT}/redis:${PROC_TYPE}-5.0
     build:
       context: docker-redis/5.0/alpine
     container_name: redis
@@ -157,7 +179,7 @@ services:
 
   registry:
     env_file:
-     ./.env
+      - ./.env
     image: registry:2
     container_name: registry
     ports:

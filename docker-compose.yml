@@ -3,7 +3,7 @@ services:
   adan:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/adan:prfx-arm64-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/adan:prfx-${CPU_TYPE}-v${IWC_INTRANET_VERSION}
     build:
       context: ./dns/docker-php-nginx
     deploy:
@@ -56,7 +56,7 @@ services:
   dnsmasqd:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_dnsmasqd:arm64v8-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_dnsmasqd:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
     #build:
       #context: ./dns/docker-dnsmasq
     deploy:
@@ -95,7 +95,7 @@ services:
   dnscryptd:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_dnscrypt-proxy:arm64v8-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_dnscrypt-proxy:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
     #build:
       #context: ./dns/docker-dnscrypt
     deploy:
@@ -133,7 +133,7 @@ services:
   smbd:
    env_file:
      - ./.env
-   image: ${DOCKER_ACCT}/intranet_smbd:arm64v8-v${IWC_INTRANET_VERSION}
+   image: ${DOCKER_ACCT}/intranet_smbd:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
    build:
      context: ./storage/docker-samba
    deploy:
@@ -172,7 +172,7 @@ services:
   rsync:
     env_file:
       - ./.env
-    image: ${DOCKER_ACCT}/intranet_rsync:arm64v8-v${IWC_INTRANET_VERSION}
+    image: ${DOCKER_ACCT}/intranet_rsync:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
     container_name: rsync
     build:
       context: ./storage/docker-rsync
