@@ -6,7 +6,7 @@ A collection of DNS and Hosting Docker builders for easy Intranet management, bu
 * Tacoma, WA 98404
 
 ***
-<img class="tacoma" src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Tacoma_Dome.jpg' alt="Tacoma Dome">
+![Tacoma Dome](https://upload.wikimedia.org/wikipedia/commons/e/ee/Tacoma_Dome.jpg)
 *** 
 
 ## Project TLDR;
