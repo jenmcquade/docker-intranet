@@ -157,11 +157,13 @@ if [ -f /home/vagrant/intranet/environment.sh ]; then
 fi
 cd /home/vagrant/intranet
 git pull origin master
-sudo docker-compose pull 
-sudo docker-compose up -d
-cd ops
-sudo docker-compose pull
-sudo docker-compose up -d
+# Deploy script initiation
+# ! This is comment until arm64 Docker builders are all pushed to Dockerhub #
+# sudo docker-compose pull 
+# sudo docker-compose up -d
+# cd ops
+# sudo docker-compose pull
+# sudo docker-compose up -d
 EOC
 
 end
