@@ -31,12 +31,20 @@ Vagrant.configure("2") do |config|
 
   ###
   # OS use cases
+  # "One Kernel to Pop Them All"
+  # IWC Docker Intranet v1.0.0 Jonah
+  # Targeting Linux Kernel 4.4 variations
+  # Stable branches across libraries are implemented for production containers
+  # On occassion, we use edge branches when appropriate and testable.
+  # We clone and fork public repos. When we're sharing, we provide project.url file to the original implementation of a project or library.
+  # We do not use community forks or universes
   ###
 
   #  -- Ubuntu Xenial (16.04 LTS) is Linux Kernel 4.4, which is also supported by Android Pie.
   #  -- Debian builds on top of kernel 4.14 and has limited arm64 library support. 
   #  -- Some GC++ libraries that Docker arm64 builders rely on require Debian arm64 libraries to build (Ubuntu/Alpine might not have corresponding build libraries), so Debian Stretch is implemented in some Docker build stages.
   #  -- Linux Alpine is hopefully always the container OS for Docker in this project, unless Dockerfile stipulates otherwise.
+  #  -- Linux Alpine 3.8.2 is the last version to include Linux Kernel 4.4 (4.14.89). So, that's what we target in our Docker Alpine containers.
   
   ###
   # FIRMWARE
