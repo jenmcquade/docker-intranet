@@ -4,7 +4,7 @@ services:
 
   firewall:
     env_file:
-      - ./.env
+      - ${PWD}/../.env
     image: ${DOCKER_ACCT}/intranet_firewall:${PROC_TYPE}-v${IWC_INTRANET_VERSION}
     build:
       context: ./docker-firewall

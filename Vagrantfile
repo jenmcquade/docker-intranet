@@ -1,13 +1,32 @@
 Vagrant.configure("2") do |config|
 
   ###
+  # Indie Web Consulting Docker Intranet
+  # Virtual Agnostic Development Environment and Registry (VADER)
+  # "We use what we build, and we trust what we use."
+  # DESCRIPTION
+  #  -- "Virtual Agnostic" means IWC is supporting two (count 'em, 2!) CPU architectures in this repo, both running the same Linux kernel across all Linux OS software releases. So, v1.0.0 (Jonah) corresponds to Linux kernel 4.4, which is supported by Android 9 Pie, Debian, Ubuntu, Chromium OS and Armbian
+  #  -- This Vagrant VBox builder is for x64 machines, and is intended as a substitute for clients who wish to run IWC software without IWC hardware
+  #  -- The original inspiration for this builder was to run the IWC Intranet on a Windows Home 64-bit OS, with no need for Hyper-V or Windows container management to run its server software.
+  #  -- This Ubuntu Bionic Beaver environment won't allow you to build arm64/aar64 code in some cases (mostly Docker) without modification
+  #  -- In a lot of cases, prerequisite libraries for builders are synonymous across architectures of a Linux distro. So, you can try searching Debian and Alpine libraries online if you need to adapt an arm64 builder for x64
+  #  -- This environment will allow you to run and build x64 versions of the Docker Intranet for IWC products that run in a hybrid Cloud
+  #  -- x64 code builds can run in most Cloud providers with minimal supervision, using Docker Deploy (No Kubernetes experience required)
+  #  -- arm64 code builds run natively on IWC embedded products (No Vagrant/Vbox). Some embedded software libraries may not run on other hardware, and IWC only validates its software on its own hardware
+  #  -- You can change config.vm.box base box and the code repo should still pull down into the box during provisioning from this file
+  #  -- As with most things FOSS with a GNU slant: You break it, you buy IT. IWC has not patents, but its warantees and guarantees are attached to its service level agreements
+  # -- Please use community forums for free support, because that's how IWC also learns cool stuff, responds to feature requests, and contributes back to the FOSS community
+
+  ###
+
+  ###
   #  BOX CONFIGURATIONS
   ###
 
   config.vm.box = "ubuntu/bionic64"
-  # config.vm.network "private_network", type: "dhcp"
+  config.vm.network "private_network", type: "dhcp"
   config.vm.box_check_update
-  config.vm.hostname = "intranet"
+  config.vm.hostname = "iwc.intranet"
   config.vm.provision :docker
   config.vm.boot_timeout = 30000
 
@@ -139,8 +158,10 @@ fi
 cd /home/vagrant/intranet
 git pull origin master
 sudo docker-compose pull 
+sudo docker-compose up -d
 cd ops
 sudo docker-compose pull
+sudo docker-compose up -d
 EOC
 
 end
