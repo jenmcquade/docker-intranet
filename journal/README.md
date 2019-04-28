@@ -58,6 +58,8 @@
 ## Links we've found helpful so far
 
 ### Bootloaders
+- [Amlogic Boot Loader](http://openlinux.amlogic.com/wiki/index.php/Arm/Boot_Loader)
+- [XDA Developers Amlogic Tools](https://forum.xda-developers.com/android-stick--console-computers/amlogic/opensource-amlogic-tools-t3786991)
 
 ### SBC Manufacturers
 - [Libre Le Potato Homepage](https://libre.computer/products/boards/aml-s905x-cc/)
@@ -65,6 +67,7 @@
 - [Rasberry Pi boot binaries](https://github.com/andreiw/RaspberryPiPkg/tree/master/Binary/prebuilt/2019Feb18-GCC5/RELEASE)
 
 ### Libre Le Potato burn tool images 
+- [Libre Product Support Le Potato Images](https://libre.computer/products/boards/aml-s905x-cc/)
 
 ### Amlogic chipset help 
 - [Openlinux Buildroot for Libre Le Potato Amlogic SOC](http://share.loverpi.com/board/libre-computer-project/libre-computer-board-aml-s905x-cc/soc-amlogic/buildroot/buildroot_openlinux_kernel_4.9_20170814_s905x.pdf)
@@ -85,8 +88,15 @@
 - [ChromiumOS Dev Guide: Building](https://chromium.googlesource.com/chromiumos/docs/+/master/developer_guide.md#building-chromium-os)
 
 ### IoT Devices, Blogs, and Hardware reviews
+- [Green Pi Thumb Project](https://mtlynch.io/greenpithumb/)
 
 ### Smart Home / DIY
+- [Snips Private-By-Design Voice Platform](https://makers.snips.ai/)
+- [Indie Web Consulting parts wishlist](http://wishes.indiewebconsulting.com/)
+- [Smart Gardening System from Rasberry Pi](https://www.switchdoc.com/2018/11/new-smart-garden-system-raspberry-pi/)
+- [Build an automatic Rasberry Pi greenhouse](https://tutorials-raspberrypi.com/build-your-own-automatic-raspberry-pi-greenhouse/)
+- [Setup a Rasberry Pi security camera livestream](https://tutorials-raspberrypi.com/raspberry-pi-security-camera-livestream-setup/)
+- [Hydroponic gardening with a Rasberry Pi](https://www.raspberrypi.org/magpi/hydroponic-gardening/)
 
 ### Amazon Web Services
 - [Cerbot DNS Route53 Documentation](https://certbot-dns-route53.readthedocs.io/en/stable/)
@@ -108,6 +118,7 @@
 - [Moodle in Docker](https://github.com/moodlehq/moodle-docker)
 - [Steps to clear out the history of a GitHub repository](https://gist.github.com/stephenhardy/5470814)
 - [Armbian Build Tools](https://github.com/armbian/build)
+- [GitHub Topic: Gardening](https://github.com/topics/gardening)
 
 ### APIs / Manpages
 - [DNSCrypt Proxy](http://manpages.ubuntu.com/manpages/xenial/man8/dnscrypt-proxy.8.html)
@@ -141,6 +152,8 @@
 ### Linux (non-OS specific)
 
 ### ARM64v8 Development
+- [Official Support for Windows 10 on ARM](https://blogs.windows.com/buildingapps/2018/11/15/official-support-for-windows-10-on-arm-development/)
+- [Windows 10 on ARM documentation](https://docs.microsoft.com/en-us/windows/arm/)
 
 ### GPIO Development / Python for embedded devices
 
