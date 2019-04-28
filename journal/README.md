@@ -69,6 +69,7 @@
 - [Squid Proxy Caching Server](https://linux.die.net/man/8/squid)
 
 ### Containerization, Orchestration, Virtualization and Emulation (COVE)
+- [This project's Vagrantfile for building, burning, and testing from x64 hosts](https://github.com/jonmcquade/docker-intranet/blob/master/Vagrantfile)
 - [Install Docker on Debian](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce-1)
 - [Portainer Documentation](https://portainer.readthedocs.io/en/latest/deployment.html)
 - [A complete guid to Docker ARG, ENV and .env](https://vsupalov.com/docker-arg-env-variable-guide/)
