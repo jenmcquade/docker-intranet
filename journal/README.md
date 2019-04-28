@@ -23,7 +23,7 @@
 - [Setting hostname and domain](https://unix.stackexchange.com/questions/322883/how-to-correctly-set-hostname-and-domain-name)
 - [How to install Cerbot plugins?](https://devops.stackexchange.com/questions/3757/how-to-install-certbot-plugins)
 - [How do I produce a CA signed public key?](https://security.stackexchange.com/questions/108508/how-do-i-produce-a-ca-signed-public-key)
-- [How to remove <none> images after building(https://forums.docker.com/t/how-to-remove-none-images-after-building/7050)  
+- [How to remove <none> images after building](https://forums.docker.com/t/how-to-remove-none-images-after-building/7050)  
 
 ### Android Development and OEM documentation
 - [Android Kernel for arm64](https://android.googlesource.com/kernel/arm64/)
