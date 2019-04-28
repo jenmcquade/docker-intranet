@@ -45,7 +45,7 @@
 ![firmware-test-notes-1]![firmware-test-notes-2]![firmware-test-notes-3]![firmware-test-notes-4]![firmware-test-notes-5]![firmware-test-notes-6]![firmware-test-notes-7]
 ### Partitions
 #### SD Card
-![partions-sd]
+![partitions-sd]
 #### eMMC
 ![partitions-emmc]
 ### Burn Tools
