@@ -10,23 +10,24 @@
 ### Bootloaders
 
 ### SBC Manufacturers
-[https://libre.computer/products/boards/aml-s905x-cc/](Libre Le Potato Homepage)
-[https://libre.computer/2018/04/08/aml-s905x-cc-mainline-linux-preview-image-8-with-emmc-support/](Libre Mainline Linux with eMMC Support)
-[https://github.com/andreiw/RaspberryPiPkg/tree/master/Binary/prebuilt/2019Feb18-GCC5/RELEASE](Rasberry Pi boot binaries)
+[Libre Le Potato Homepage](https://libre.computer/products/boards/aml-s905x-cc/)
+[Libre Mainline Linux with eMMC Support](https://libre.computer/2018/04/08/aml-s905x-cc-mainline-linux-preview-image-8-with-emmc-support/)
+[Rasberry Pi boot binaries](https://github.com/andreiw/RaspberryPiPkg/tree/master/Binary/prebuilt/2019Feb18-GCC5/RELEASE)
 
 ### Libre Le Potato burn tool images 
 
 ### Amlogic chipset help 
-[http://share.loverpi.com/board/libre-computer-project/libre-computer-board-aml-s905x-cc/soc-amlogic/buildroot/buildroot_openlinux_kernel_4.9_20170814_s905x.pdf](Openlinux Buildroot for Libre Le Potato Amlogic SOC)
+[Openlinux Buildroot for Libre Le Potato Amlogic SOC](http://share.loverpi.com/board/libre-computer-project/libre-computer-board-aml-s905x-cc/soc-amlogic/buildroot/buildroot_openlinux_kernel_4.9_20170814_s905x.pdf)
 
 ### Message boards
 
 ### Android Development and OEM documentation
-[https://android.googlesource.com/kernel/arm64/](Android Kernel for arm64)
-[https://android.googlesource.com/kernel/common/+/refs/heads/upstream-linux-4.4.y](Upstream Linux 4.4 repo for Android)
+[Android Kernel for arm64](https://android.googlesource.com/kernel/arm64/)
+
+Upstream Linux 4.4 repo for Android[](https://android.googlesource.com/kernel/common/+/refs/heads/upstream-linux-4.4.y)
 
 ### OS-specific help libraries
-[https://forum.armbian.com/topic/5668-le-potato-writing-armbian-to-emmc/](Writing Armbian to eMMC on Le Potato)
+[Writing Armbian to eMMC on Le Potato](https://forum.armbian.com/topic/5668-le-potato-writing-armbian-to-emmc/)
 
 ### IoT Devices, Blogs, and Hardware reviews
 
@@ -35,13 +36,13 @@
 ### Amazon Web Services
 
 ### GitHub Projects
-[https://github.com/indiewebconsulting](Indie Web Consulting Group on GitHub)
-[https://github.com/jonmcquade/docker-intranet](This project's home)
+[Indie Web Consulting Group on GitHub](https://github.com/indiewebconsulting)
+[This project's home](https://github.com/jonmcquade/docker-intranet)
 
 ### APIs / Manpages
 
 ### Containerization, Orchestration, Virtualization and Emulation (COVE)
-[https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce-1](Install Docker on Debian)
+[Install Docker on Debian](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce-1)
 
 ### Media Streaming and VOD
 
