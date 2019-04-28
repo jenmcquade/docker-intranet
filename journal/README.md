@@ -1,18 +1,11 @@
+![logo]
+
 # Innovation/Ideation Journal
 - This directory will eventually be migrated to its own branch off of master, to free up clone size. Right now, it makes for a good conversation piece. Yes, there are binaries in the master branch. No, we don't think that's weird.
 - Drawing/Whiteboard files are directly exported from iOS Bamboo and committed here with a comment regarding its contents.
 - We avoid timelines here.
 - Not all initial investigations into requirements in these documents are required for phase 1, v1.0.0 Jonah release.
 - When appropriate, "Pie in the Sky" dreams are labeled and captured until later scoping to avoid creep.
-
-<style>
-img[] {
-  width: 50%;
-  border: none;
-  text-align: center;
-  background: none;
-}
-</style>
 
 [logo]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/iwc.png "Indie Web Consulting, Tacoma, WA"
 [aedan]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/484AAC3C-2B16-4C02-B964-53B5AAE146F5.png "Project AEDAN"
@@ -34,14 +27,34 @@ img[] {
 [firmware-test-notes-5]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/C2F0EF42-9139-4BF9-AFEE-7A507B11CF1F.png "Firmware tests notes Pages 5"
 [firmware-test-notes-6]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/923FD070-1B43-4E3E-AFD9-4DE0EA4D8740.png "Firmware tests notes Pages 6"
 [firmware-test-notes-7]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/182F2CF4-1F65-4E56-BDB0-2914E4F326C0.png "Firmware tests notes Pages 7"
-<style>
-[img][logo] {
-  width: 50%;
-  border: none;
-  text-align: center;
-  background: none;
-}
-</style>
+
+## Hardware Specifications
+![specs]
+
+## Cost Breakdown
+![cost-breakdown]
+
+## Phase 1 Projects
+### Project AEDAN
+![aedan]
+### TH^nOS
+![thanos]
+
+## Firmware notes
+### Testing firmware installations on the Le Potato
+![firmware-test-notes-1]![firmware-test-notes-2]![firmware-test-notes-3]![firmware-test-notes-4]![firmware-test-notes-5]![firmware-test-notes-6]![firmware-test-notes-7]
+### Partitions
+#### SD Card
+![partions-sd]
+#### eMMC
+![partitions-emmc]
+### Burn Tools
+![firmware-composition-1]![firmware-composition-2]
+### TODO/Things to consider
+![firmware-todo-1]![firmware-todo-2]![firmware-todo-3]
+### Boot Scripting
+![infinity]
+
 ## Links we've found helpful so far
 
 ### Bootloaders
