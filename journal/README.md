@@ -61,16 +61,16 @@
 ### APIs / Manpages
 - [DNSCrypt Proxy](http://manpages.ubuntu.com/manpages/xenial/man8/dnscrypt-proxy.8.html)
 - [DNSMASQ](http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html)
+- [Rsyslog](https://linux.die.net/man/8/rsyslogd)
 
 ### Caching
 - [Redis](https://github.com/docker-library/redis)
 - [Redis in Docker](https://hub.docker.com/_/redis)
+- [Squid Proxy Caching Server](https://linux.die.net/man/8/squid)
 
 ### Containerization, Orchestration, Virtualization and Emulation (COVE)
 - [Install Docker on Debian](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce-1)
 - [Portainer Documentation](https://portainer.readthedocs.io/en/latest/deployment.html)
-- [Rsyslog](https://linux.die.net/man/8/rsyslogd)
-- [Squid Proxy Caching Server](https://linux.die.net/man/8/squid)
 - [A complete guid to Docker ARG, ENV and .env](https://vsupalov.com/docker-arg-env-variable-guide/)
 - [Docker Compose Documentation - Up](https://docs.docker.com/compose/reference/up/)
 - [Create a Docker swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
