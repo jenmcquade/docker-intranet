@@ -13,8 +13,8 @@
 [specs]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/2DEB7871-0BC5-495E-9B08-71AAA75427B9.png "Hardware specifications"
 [infinity]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/4DD99231-94AA-4814-B3A5-57502F003291.png "Infinity Bootloader"
 [cost-breakdown]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/217EEA2D-CA0B-4C04-98DB-600388F2CAF0.png
-[partitions-sd]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/A4A86962-B32A-417A-BED3-6EE96C588C9C.png "SD Boot Partitions"
 [partitions-emmc]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/ABAD1D2E-FB59-4BED-B4CA-88F23253AD63.png "eMMC Boot Partitions" 
+[partitions-sd]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/A4A86962-B32A-417A-BED3-6EE96C588C9C.png "SD Boot Partitions"
 [firmware-composition-1]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/F0F65D7B-0232-43C5-A720-C22AC69AE609.png "Firmware Composition Page 1"
 [firmware-composition-2]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/FADA0817-643E-4D8C-92F0-BF577D9DAB7A.png "Firmware Composition Page 2" 
 [firmware-todo-1]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/3149A497-43F1-4878-B1BD-CF58A5806C9B.png "Firmware ToDo Page 1"
@@ -44,10 +44,10 @@
 ### Testing firmware installations on the Le Potato
 ![firmware-test-notes-1]![firmware-test-notes-2]![firmware-test-notes-3]![firmware-test-notes-4]![firmware-test-notes-5]![firmware-test-notes-6]![firmware-test-notes-7]
 ### Partitions
-#### SD Card
-![partitions-sd]
 #### eMMC
 ![partitions-emmc]
+#### SD Card
+![partitions-sd]
 ### Burn Tools
 ![firmware-composition-1]![firmware-composition-2]
 ### TODO/Things to consider
