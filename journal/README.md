@@ -140,6 +140,7 @@
 - [Docker Compose Documentation - Up](https://docs.docker.com/compose/reference/up/)
 - [Create a Docker swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
 - [Kubernetes vs. Docker Swarm Comparison Guide](https://hackernoon.com/kubernetes-vs-docker-swarm-a-complete-comparison-guide-15ba3ac6f750)
+- [Kubernetes and ownCloud on Le Potato](http://containerized.me/arming-kubernetes-with-openebs-1/)
 
 ### Media Streaming and VOD
 - [Nginx RTMP Module](https://github.com/arut/nginx-rtmp-module)
