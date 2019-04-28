@@ -23,8 +23,7 @@
 
 ### Android Development and OEM documentation
 - [Android Kernel for arm64](https://android.googlesource.com/kernel/arm64/)
-
-Upstream Linux 4.4 repo for Android[](https://android.googlesource.com/kernel/common/+/refs/heads/upstream-linux-4.4.y)
+- [Upstream Linux 4.4 repo for Android](https://android.googlesource.com/kernel/common/+/refs/heads/upstream-linux-4.4.y)
 
 ### OS-specific help libraries
 - [Writing Armbian to eMMC on Le Potato](https://forum.armbian.com/topic/5668-le-potato-writing-armbian-to-emmc/)
