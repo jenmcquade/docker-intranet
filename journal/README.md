@@ -151,9 +151,9 @@
 - [ASP .NET Core Docker Sample](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md)
 
 ### Linux (non-OS specific)
-[Linux Upstream](https://www.kernel.org/)
-[Libretech Mainline Linux Fork](https://github.com/libre-computer-project/libretech-linux)
-[aarch64 Linux GNU C++ Manpage](https://linux.die.net/man/1/aarch64-linux-gnu-gcc)
+- [Linux Upstream](https://www.kernel.org/)
+- [Libretech Mainline Linux Fork](https://github.com/libre-computer-project/libretech-linux)
+- [aarch64 Linux GNU C++ Manpage](https://linux.die.net/man/1/aarch64-linux-gnu-gcc)
 
 ### ARM64v8 Development
 - [Official Support for Windows 10 on ARM](https://blogs.windows.com/buildingapps/2018/11/15/official-support-for-windows-10-on-arm-development/)
