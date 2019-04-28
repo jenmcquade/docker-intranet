@@ -89,6 +89,7 @@
 
 ### IoT Devices, Blogs, and Hardware reviews
 - [Green Pi Thumb Project](https://mtlynch.io/greenpithumb/)
+- [Le Potato Wiki on LoveRPI](http://wiki.loverpi.com/sbc:libre-computer-aml-s905x-cc)
 
 ### Smart Home / DIY
 - [Snips Private-By-Design Voice Platform](https://makers.snips.ai/)
