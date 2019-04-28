@@ -23,7 +23,7 @@
 - [Setting hostname and domain](https://unix.stackexchange.com/questions/322883/how-to-correctly-set-hostname-and-domain-name)
 - [How to install Cerbot plugins?](https://devops.stackexchange.com/questions/3757/how-to-install-certbot-plugins)
 - [How do I produce a CA signed public key?](https://security.stackexchange.com/questions/108508/how-do-i-produce-a-ca-signed-public-key)
-- [How to remove <none> images after building](https://forums.docker.com/t/how-to-remove-none-images-after-building/7050)  
+- [How to remove `<none>` images after building in Docker](https://forums.docker.com/t/how-to-remove-none-images-after-building/7050)  
 
 ### Android Development and OEM documentation
 - [Android Kernel for arm64](https://android.googlesource.com/kernel/arm64/)
@@ -32,6 +32,7 @@
 ### OS-specific help libraries
 - [Writing Armbian to eMMC on Le Potato](https://forum.armbian.com/topic/5668-le-potato-writing-armbian-to-emmc/)
 - [Armbian Documentation](https://docs.armbian.com/)
+- [ChromiumOS Dev Guide: Building](https://chromium.googlesource.com/chromiumos/docs/+/master/developer_guide.md#building-chromium-os)
 
 ### IoT Devices, Blogs, and Hardware reviews
 
@@ -78,6 +79,14 @@
 - [Kubernetes vs. Docker Swarm Comparison Guide](https://hackernoon.com/kubernetes-vs-docker-swarm-a-complete-comparison-guide-15ba3ac6f750)
 
 ### Media Streaming and VOD
+- [Nginx RTMP Module](https://github.com/arut/nginx-rtmp-module)
+- [Facebook Live Streaming API](https://developers.facebook.com/docs/live-video-api)
+- [Youtube Live Streaming API](https://developers.google.com/youtube/v3/live/getting-started)
+- [Twitch for Developers](https://dev.twitch.tv/why-twitch/)
+
+### Web Apps
+- Web Sockets over HTTP2: [Kestrel Server in ASP .NET Core 2.2](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.2)
+- [ASP .NET Core Docker Sample](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md)
 
 ### Linux (non-OS specific)
 
@@ -93,6 +102,8 @@
 
 ### Serverless
 
-### ETC / Other
-[Poison ROM for S905x devices](https://forum.xda-developers.com/android-stick--console-computers/amlogic/s905x-devices-poison-rom-t3803867)
-
+### Etc / Other
+- [Poison ROM for S905x devices](https://forum.xda-developers.com/android-stick--console-computers/amlogic/s905x-devices-poison-rom-t3803867)
+- [ATV Experience Aftermarket Android TV for S905X chipsets](https://www.atvxperience.com/#link_tab-S905X)
+- [LineageOS for Android](https://lineageos.org/)
+- [Chromium OS Nightly Builds](https://chromium.arnoldthebat.co.uk/?dir=.%2Fdaily)
