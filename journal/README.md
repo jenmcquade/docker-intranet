@@ -72,7 +72,7 @@
 - [This project's Vagrantfile for building, burning, and testing from x64 hosts](https://github.com/jonmcquade/docker-intranet/blob/master/Vagrantfile)
 - [Install Docker on Debian](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce-1)
 - [Portainer Documentation](https://portainer.readthedocs.io/en/latest/deployment.html)
-- [A complete guid to Docker ARG, ENV and .env](https://vsupalov.com/docker-arg-env-variable-guide/)
+- [A complete guide to Docker ARG, ENV and .env](https://vsupalov.com/docker-arg-env-variable-guide/)
 - [Docker Compose Documentation - Up](https://docs.docker.com/compose/reference/up/)
 - [Create a Docker swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
 - [Kubernetes vs. Docker Swarm Comparison Guide](https://hackernoon.com/kubernetes-vs-docker-swarm-a-complete-comparison-guide-15ba3ac6f750)
