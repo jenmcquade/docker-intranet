@@ -14,7 +14,7 @@ img[] {
 }
 </style>
 
-[logo]: https://github.com/jonmcquade/docker-intranet/journal/iwc.png "Indie Web Consulting, Tacoma, WA"
+[logo]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/iwc.png "Indie Web Consulting, Tacoma, WA"
 [aedan]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/484AAC3C-2B16-4C02-B964-53B5AAE146F5.png "Project AEDAN"
 [thanos]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/D2FF716A-8417-421B-A733-CFE26A121B42.png "Terminal/HTTPS/Android v.N Operating System"
 [specs]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/2DEB7871-0BC5-495E-9B08-71AAA75427B9.png "Hardware specifications"
@@ -34,9 +34,14 @@ img[] {
 [firmware-test-notes-5]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/C2F0EF42-9139-4BF9-AFEE-7A507B11CF1F.png "Firmware tests notes Pages 5"
 [firmware-test-notes-6]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/923FD070-1B43-4E3E-AFD9-4DE0EA4D8740.png "Firmware tests notes Pages 6"
 [firmware-test-notes-7]: https://github.com/jonmcquade/docker-intranet/blob/master/journal/182F2CF4-1F65-4E56-BDB0-2914E4F326C0.png "Firmware tests notes Pages 7"
-
-![alt text][logo]
-
+<style>
+[img][logo] {
+  width: 50%;
+  border: none;
+  text-align: center;
+  background: none;
+}
+</style>
 ## Links we've found helpful so far
 
 ### Bootloaders
