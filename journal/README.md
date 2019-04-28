@@ -144,12 +144,16 @@
 - [Facebook Live Streaming API](https://developers.facebook.com/docs/live-video-api)
 - [Youtube Live Streaming API](https://developers.google.com/youtube/v3/live/getting-started)
 - [Twitch for Developers](https://dev.twitch.tv/why-twitch/)
+- [Widevine DRM](https://www.widevine.com/solutions/widevine-drm)
 
 ### Web Apps
 - Web Sockets over HTTP2: [Kestrel Server in ASP .NET Core 2.2](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-2.2)
 - [ASP .NET Core Docker Sample](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md)
 
 ### Linux (non-OS specific)
+[Linux Upstream](https://www.kernel.org/)
+[Libretech Mainline Linux Fork](https://github.com/libre-computer-project/libretech-linux)
+[aarch64 Linux GNU C++ Manpage](https://linux.die.net/man/1/aarch64-linux-gnu-gcc)
 
 ### ARM64v8 Development
 - [Official Support for Windows 10 on ARM](https://blogs.windows.com/buildingapps/2018/11/15/official-support-for-windows-10-on-arm-development/)
