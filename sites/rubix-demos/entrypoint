@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Description: ENTRYPOINT for running Docker Images in Containers
+
+# Use this file for customizing the default behavior when a container is created
+
+set -e
+BUILD_TIME=`date +'%y.%m.%d %H:%M:%S'`
+
+echo "BUILD_TIME: $1"
+echo "BUILD_TYPE: $2"
+echo "BUILD_VER: $3"
+
+sed -i "s/80/${PORT}/g" /etc/nginx/nginx.conf && \
+
+if [ "$BUILD_TYPE" == "development" ]; then
+    npm run start
+else    
+    nginx -g "daemon off;"
+fi

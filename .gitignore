@@ -1,5 +1,6 @@
 vagrant.d
 .vagrant
+*.box
 auth/*
 config/aws/*
 ops/data/*

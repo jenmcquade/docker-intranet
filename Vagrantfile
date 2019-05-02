@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
   # We do not use community forks or universes
   ###
 
-  #  -- Ubuntu Xenial (16.04 LTS) is Linux Kernel 4.4, which is also supported by Android Pie.
+  #  -- Ubuntu Xenial (16.04 LTS) is Linux Kernel 4.4, which is also supported by Android Pie. However, other build tools and libraries are better suited to run on Bionic. So, Vagrant runs on Bionic, but we only build Ubuntu Docker images as high as Xenial.
   #  -- Debian builds on top of kernel 4.14 and has limited arm64 library support. 
   #  -- Some GC++ libraries that Docker arm64 builders rely on require Debian arm64 libraries to build (Ubuntu/Alpine might not have corresponding build libraries), so Debian Stretch is implemented in some Docker build stages.
   #  -- Linux Alpine is hopefully always the container OS for Docker in this project, unless Dockerfile stipulates otherwise.
@@ -62,7 +62,7 @@ Vagrant.configure("2") do |config|
   ###
   ## VAGRANT ENVIRONMENT COMPOSITION BELOW
   ###
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/bionic64"
   config.vm.network "private_network", type: "dhcp"
   config.vm.box_check_update
   config.vm.hostname = "iwc.intranet"

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      /* vietnamese */
+      @font-face {
+        font-family: 'Anton';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Anton Regular'), local('Anton-Regular'), url(https://fonts.gstatic.com/s/anton/v9/lPe1yn6mfx09SN8b3TUYbIDGDUGfDkXyfkzVDelzfFk.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+      }
+      /* latin-ext */
+      @font-face {
+        font-family: 'Anton';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Anton Regular'), local('Anton-Regular'), url(https://fonts.gstatic.com/s/anton/v9/8NU_-DMruT2VEumfuawh8YDGDUGfDkXyfkzVDelzfFk.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+      }
+      /* latin */
+      @font-face {
+        font-family: 'Anton';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Anton Regular'), local('Anton-Regular'), url(https://fonts.gstatic.com/s/anton/v9/TS7BJzhU7AKgPn9R0AejYKCWcynf_cDxXwCLxiixG1c.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+      }
+      @font-face { 
+        font-family: 'FontAwesome';
+        font-style: normal;
+        font-weight: 400;
+        src: local('FontAwesome'), url(./static/media/fontawesome-webfont.woff2) format('woff2');
+      }
+      @font-face {
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Glyphicons Halflings'), url(./static/media/glyphicons-halflings-regular.woff2) format('woff2');
+      }
+
+      a:focus {
+        text-decoration: none;
+      }
+
+      #root {
+        font-family: Anton;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1em;
+        color: white;
+        background-color: black;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        width: 100%;
+        min-height: 100%;
+        width: 100%;
+      }
+
+      #loadingSpinner {
+        position: absolute;
+        margin: 25% 45%;
+        align-content: center;
+        display: flex;
+      }
+
+      @media only screen
+      and (min-width : 75px) 
+      and (max-width : 719px) {
+        #loadingSpinner {
+          margin: 55% 25%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="loadingSpinner">
+      <img style="width: 200px;" src="/static/media/loader.gif" />
+    </div>
+    <div id="prodBuildInfo" style="display: none;">
+      <div>
+        <div><label>Built at: </label><span> <%= htmlWebpackPlugin.options.buildAt %></span></div>
+        <div><label>Version: </label><span> <%= htmlWebpackPlugin.options.buildVer %></span></div>
+      </div> 
+    </div>
+    <div id="app">
+      <div style="display:flex">
+        <div id="root" />
+      </div>
+    </div>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-color: black;
+        height: 100%;
+        width: 100%;
+      }
+      a:focus {
+        outline: 0px;
+        outline-offset: 0px;
+      }
+      @media only screen
+      and (min-width : 75px) 
+      and (max-width : 719px) {
+        #prodBuildInfo {
+          font-family: sans-serif;
+          font-size: 0.5em;
+        }
+        .fa {
+          font-size: 2em;
+        }
+      }
+    </style>
+
+  </body>
+</html>

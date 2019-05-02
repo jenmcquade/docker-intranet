@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# Description: ENTRYPOINT for running Docker Images in Containers
+
+# Use this file for customizing the default behavior when a container is created
+
+set -e
+printenv
+ 
+cd /dotnetcorespa
+
+echo -e "\n\n\n...Launch Settings: \n\n\n" 
+cat /dotnetcorespa/Properties/launchSettings.json
+cat /dotnetcorespa/appsettings.json
+## Create server configurations from .tpl files
+cd /dotnetcorespa/tpl
+sed -i "s/3000/${PORT}/g" launchSettings-local.json 
+sed -i "s/3001/${SSL_PORT}/g" launchSettings-local.json
+sed -i "s/3000/${PORT}/g" appsettings-local.json 
+sed -i "s/3001/${SSL_PORT}/g" appsettings-local.json
+cp launchSettings-local.json /dotnetcorespa/Properties/launchSettings.json
+cp appsettings-local.json /dotnetcorespa/appsettings.json
+echo "Node Version: " && node -v
+echo "NPM Version: " && npm -v
+cd /dotnetcorespa
+cp ./tpl/appsettings-local.json ./appsettings.Development.json 
+sed -i "s/\"Default\": \"Information\"/\"Default\": \"Debug\"/g" ./appsettings.Development.json
+sed -i "s/\"Microsoft\": \"Information\"/\"Microsoft\": \"Debug\"/g" ./appsettings.Development.json 
+echo ".NET SDK Version: " && dotnet --version
+echo -e "\n\n\n... Installing node project dependencies..."
+npm config set package-lock false
+npm install
+npm run wp-vendor 
+npm run wp
+echo -e "\n\n\n... Starting the server..." 
+dotnet run -c Debug -r alpine.3.6-x64
+
+
+
+

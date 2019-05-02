@@ -1,0 +1,27 @@
+version: '3'
+      
+services:
+  # Frontend/UI (No nginx proxy for development)
+  o3dv:
+    container_name: o3dv_dev
+    image: open3dviewer:dev
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        build_type: development
+        node_env: development
+    environment:
+      - "BUILD_VER=$BUILD_VER"
+    volumes:
+      - ./src:/src
+    ports:
+     - "8080:8080"
+     - "8443:443"
+     - "3001:3001"
+     - "3002:3002"
+    networks:
+     - app
+     
+networks:
+  app:  

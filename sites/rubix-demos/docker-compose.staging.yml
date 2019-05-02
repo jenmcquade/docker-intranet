@@ -1,0 +1,45 @@
+version: '3'
+      
+services:
+  # Instagram Proxy
+  igdata:
+    image: instaproxy:latest
+    build: 
+      context: ./social/insta-proxy
+      dockerfile:  Dockerfile
+      args: 
+        build_type: staging
+        node_env: production
+        port: 80
+    environment:
+      - "PORT=80"
+    container_name: instaproxy
+    networks:
+     - app
+    ports: 
+     - "3000:80"
+     - "3443:443"
+  # Frontend/UI (Nginx proxy)
+  o3dv:
+    image: open3dviewer:latest
+    environment:
+      - "BUILD_VER=${BUILD_VER}"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        build_type: staging
+        node_env: production
+        build_ver: ${BUILD_VER}
+        port: 8080
+    environment:
+      - "PORT=8080"
+    container_name: o3dv
+    ports:
+     - "8080:8080"
+     - "8443:443"
+    networks:
+     - app
+     
+networks:
+  app:  

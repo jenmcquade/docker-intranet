@@ -1,0 +1,31 @@
+version: '3.2'
+      
+services:
+  
+  flightsearch:
+    container_name: aspnetcore-react-redux-dev
+    image: jonmcquade/aspnetcore-react-redux:dev
+    restart: on-failure:5
+    build: 
+      context: ./src
+      dockerfile: Dockerfile
+      args:
+        port: 8080             
+        sslPort: 8443
+        runtime: Debug
+    volumes:
+      - ./src:/dotnetcorespa
+      - ./src/entrypoint:/entrypoint  
+      - ./README.md:/README.md
+      - node_modules:/dotnetcorespa/node_modules
+    environment:
+      - "PORT=8080"
+      - "SSL_PORT=8443"
+      - "ASPNETCORE_ENVIRONMENT=Docker"
+      - "ASPNETCORE_URLS=http://*:8080;https://*:8443"
+    ports:
+     - "8080:8080"
+     - "8443:8443"
+     
+volumes:     
+  node_modules:
