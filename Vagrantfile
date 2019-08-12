@@ -152,50 +152,52 @@ Vagrant.configure("2") do |config|
 # Docker installation scripts
 
 config.vm.provision "shell", inline: <<-EOC
-sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-sudo docker --version
-sudo docker-compose version 
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+  sudo docker --version
+  sudo docker-compose version 
 EOC
 
 # Update Ubuntu and grab some handy tools
 config.vm.provision "shell", inline: <<-EOC
-sudo apt-get update 
-sudo apt-get upgrade
-sudo apt-get install -y \
-dictionaries-common \
-aspell \
-aspell-en \
-miscfiles \
-git \
-vim \
-nano \
-wget \
-xfce4 \
-xfce4-goodies \
-librsvg2-common \
-gvfs \
-pinentry-doc \
-tightvncserver
-myuser="vagrant"
-mypasswd="*ntr@NET$"
-mkdir -p /home/$myuser/.vnc
-echo $mypasswd | vncpasswd -f > /home/$myuser/.vnc/passwd
-chmod 0600 /home/$myuser/.vnc/passwd
-echo -e "#!/bin/bash\n xrdb $HOME/.Xresources\n startxfce4 &" | tee /home/$myuser/.vnc/xstartup
-sudo chmod +x /home/$myuser/.vnc/xstartup
-vncserver &
+  sudo apt-get update 
+  sudo apt-get upgrade
+  sudo apt-get install -y \
+  dictionaries-common \
+  aspell \
+  aspell-en \
+  miscfiles \
+  git \
+  vim \
+  nano \
+  wget
 EOC
+
+  # xfce4 \
+  # xfce4-goodies \
+  # librsvg2-common \
+  # gvfs \
+  # pinentry-doc \
+  # tightvncserver
+  # myuser="vagrant"
+  # mypasswd="*ntr@NET$"
+  # mkdir -p /home/$myuser/.vnc
+  # echo $mypasswd | vncpasswd -f > /home/$myuser/.vnc/passwd
+  # chmod 0600 /home/$myuser/.vnc/passwd
+  # echo -e "#!/bin/bash\n xrdb $HOME/.Xresources\n startxfce4 &" | tee /home/$myuser/.vnc/xstartup
+  # sudo chmod +x /home/$myuser/.vnc/xstartup
+  # vncserver &
 
 # Pull latest Intranet files from github and start up the main Docker containers
 config.vm.provision "shell", inline: <<-EOC
-sh /home/vagrant/intranet/generate-vagrant-env.sh
-if [ -f /home/vagrant/intranet/environment.sh ]; then
-  sh /home/vagrant/intranet/environment.sh
-fi
-cd /home/vagrant/intranet
-git pull origin master
+  sh /home/vagrant/intranet/generate-vagrant-env.sh
+  if [ -f /home/vagrant/intranet/environment.sh ]; then
+    sh /home/vagrant/intranet/environment.sh
+  fi
+  cd /home/vagrant/intranet
+  git pull origin master
+EOC
 
 ##
 # DEPLOY SCRIPT INITIATION
@@ -206,6 +208,6 @@ git pull origin master
 # cd ops
 # sudo docker-compose pull
 # sudo docker-compose up -d
-EOC
+#EOC
 
 end
