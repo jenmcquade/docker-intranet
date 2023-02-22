@@ -61,7 +61,7 @@
         "aspnet-webpack": "^2.0.3",
         "aspnet-webpack-react": "^3.0.0",
         "bootstrap": "^4.0.0",
-        "bootstrap-sass": "^3.3.7",
+        "bootstrap-sass": "^3.4.1",
         "core-js": "^2.5.3",
         "create-react-class": "^15.6.3",
         "domain-task": "^3.0.0",
