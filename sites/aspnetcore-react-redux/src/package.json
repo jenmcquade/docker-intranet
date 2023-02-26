@@ -129,7 +129,7 @@
         "webpack": "^4.1.1",
         "webpack-aspnet-middleware": "^2.2.0",
         "webpack-bundle-analyzer": "^2.11.1",
-        "webpack-cli": "^2.0.12",
+        "webpack-cli": "^5.0.1",
         "webpack-hot-middleware": "^2.21.2",
         "webpack-merge": "^4.1.2"
     }
