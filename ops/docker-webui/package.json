@@ -63,7 +63,7 @@
     "jquery": "^3.5.0",
     "js-yaml": "~3.10.0",
     "lodash-es": "^4.17.21",
-    "moment": "^2.21.0",
+    "moment": "^2.29.4",
     "ng-file-upload": "~12.2.13",
     "rdash-ui": "1.0.*",
     "splitargs": "github:deviantony/splitargs#semver:~0.2.0",
