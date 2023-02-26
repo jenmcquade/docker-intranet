@@ -55,7 +55,7 @@
     "angularjs-slider": "^6.4.0",
     "babel-plugin-angularjs-annotate": "^0.10.0",
     "bootbox": "^4.4.0",
-    "bootstrap": "^3.4.0",
+    "bootstrap": "^3.4.1",
     "chart.js": "~2.9.4",
     "codemirror": "~5.58.2",
     "filesize": "~3.3.0",
